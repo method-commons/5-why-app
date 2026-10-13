@@ -226,7 +226,7 @@
   .rc-head .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--root); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 13px; flex: none; }
   .rc-head .t { font-weight: 700; font-size: 14.5px; }
   .rc-head .p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .m-row { display: grid; grid-template-columns: 112px 1fr 150px 210px 110px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .m-row { display: grid; grid-template-columns: 104px 1fr 76px 186px 104px 74px 92px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; }
   .m-row:last-child { border-bottom: 0; }
   .m-row.th { background: var(--surface-2); font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; padding-block: 7px; }
   .m-row .eff { font-size: 12px; color: var(--text-2); }
@@ -243,6 +243,60 @@
   .hier { display: grid; gap: 4px; font-size: 12.5px; }
   .hier div { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 6px; }
   .hier div b { margin-left: auto; font-size: 12px; }
+
+  .who { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+  .who .avatar { width: 20px; height: 20px; font-size: 9.5px; }
+  .due { font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+  .due small { display: block; font-size: 11px; font-weight: 500; color: var(--muted); }
+  .due.late { color: var(--bad); }
+  .empty-opt { color: #98a2b3; font-size: 12.5px; border: 1px dashed var(--border-strong); border-radius: 6px; padding: 2px 8px; }
+  .opt-note { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+  .opt-note a { color: var(--accent); font-weight: 600; }
+
+  /* ---------- Ishikawa ---------- */
+  .fish { position: relative; height: 560px; overflow: hidden; }
+  .fish svg.bones { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke-linecap: round; }
+  .fish .cat { position: absolute; transform: translateX(-50%); height: 30px; padding: 0 12px; display: flex; align-items: center; gap: 6px; border-radius: 8px; background: var(--text-2); color: #fff; font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .fish .cat em { font-style: normal; font-weight: 600; font-size: 11px; opacity: .75; }
+  .fish .cause { position: absolute; width: 262px; text-align: right; white-space: nowrap; }
+  .fish .cause span { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border-strong); font-size: 12px; font-weight: 600; line-height: 1.3; box-shadow: var(--shadow-xs); }
+  .fish .cause span i { font-style: normal; font-weight: 800; font-size: 11px; }
+  .fish .cause.y span i { color: var(--good); }
+  .fish .cause.q span { border-style: dashed; border-color: #f0b35b; }
+  .fish .cause.q span i { color: var(--warn); }
+  .fish .cause.n span { background: var(--surface-2); color: #98a2b3; border-style: dashed; box-shadow: none; }
+  .fish .cause.n span b { font-weight: 600; text-decoration: line-through; }
+  .fish .cause b { font-weight: 600; }
+  .fish .cause .tow { font-size: 10.5px; font-weight: 750; color: var(--accent); background: var(--accent-soft); border-radius: 4px; padding: 0 5px; }
+  .fish .cause.sel span { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .fish .head { position: absolute; left: 1012px; top: 222px; width: 196px; padding: 12px 14px; border-radius: 10px; background: var(--root-bg); border: 1.5px solid #fbd3cf; font-weight: 700; font-size: 13.5px; line-height: 1.35; }
+  .fish .head small { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--root); margin-bottom: 3px; }
+  .fish .add { position: absolute; font-size: 12px; color: var(--accent); font-weight: 650; }
+  .sel-box { white-space: nowrap; border: 1px solid var(--border-strong); border-radius: 8px; height: 34px; padding: 0 10px; display: inline-flex; align-items: center; gap: 8px; background: var(--surface); font-weight: 600; font-size: 13px; }
+  .ish-foot { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .ish-foot ul { margin: 0; padding-left: 0; list-style: none; font-size: 12.5px; }
+  .ish-foot li { display: flex; gap: 8px; align-items: center; padding: 4px 0; border-bottom: 1px dashed var(--border); }
+  .ish-foot li:last-child { border: 0; }
+  .ish-foot li .chip { margin-left: auto; }
+
+  /* ---------- Einstellungen ---------- */
+  .overlay { position: absolute; inset: 56px 0 0 0; background: rgba(16,24,40,.42); display: grid; place-items: start center; padding-top: 34px; }
+  .dialog { width: 640px; background: var(--surface); border-radius: 14px; box-shadow: var(--shadow-lg); overflow: hidden; }
+  .dlg-head { display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .dlg-head h2 { margin: 0; font-size: 17px; }
+  .dlg-sec { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .dlg-sec h3 { margin-bottom: 6px; }
+  .opt { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 8px 0; }
+  .opt b { display: block; font-size: 13.5px; }
+  .opt p { margin: 1px 0 0; font-size: 12px; color: var(--muted); }
+  .switch { width: 36px; height: 20px; border-radius: 99px; background: var(--border-strong); position: relative; flex: none; }
+  .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-xs); }
+  .switch.on { background: var(--accent); }
+  .switch.on::after { left: 18px; }
+  .switch.fixed { background: #a5b4fc; }
+  .switch.fixed::after { left: 18px; }
+  .sub-opts { margin: 0 0 4px 0; padding: 8px 12px; background: var(--surface-2); border-radius: 8px; font-size: 12.5px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .dlg-foot { display: flex; gap: 8px; align-items: center; padding: 12px 20px; background: var(--surface-2); }
 
   /* ---------- 6 Bericht ---------- */
   .paper { width: 900px; margin: 0 auto; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-lg); border-radius: 4px; padding: 30px 34px; }
@@ -309,6 +363,7 @@
           <div class="phase-labels"><span>Problem</span><span>Warum</span><span>Ursache</span><b>Maßnahmen</b><span>Wirksam</span></div>
         </div>
         <div class="rc"><span class="chip root sm">Ursache</span>Filterreinigung fehlt im Reinigungsplan</div>
+        <div class="hint" style="margin:0">⚠ 1 Maßnahme überfällig (Wechselfilter, bis 10.10.)</div>
       </div>
 
       <div class="card proj">
@@ -352,7 +407,7 @@
 
     <div class="card howto">
       <div><b><i>1</i>Problem</b><p>Was genau ist passiert – wo, wann, wie oft? Messbar, ohne Ursache oder Lösung.</p></div>
-      <div><b><i>2</i>Warum?</b><p>Fünfmal (oder so oft wie nötig) „Warum?“ fragen. Jede Antwort mit Fakten belegen.</p></div>
+      <div><b><i>2</i>Warum?</b><p>Fünfmal (oder so oft wie nötig) „Warum?“ fragen, jede Antwort belegen. Optional vorher mit Ishikawa in die Breite sammeln.</p></div>
       <div><b><i>3</i>Grundursache</b><p>Aufhören, wo eine abstellbare Ursache im eigenen Einfluss liegt – meist ein Prozess, nie eine Person.</p></div>
       <div><b><i>4</i>Maßnahmen</b><p>Sofort das Symptom eindämmen, dann die Grundursache abstellen und vorbeugen.</p></div>
       <div><b><i>5</i>Wirksamkeit</b><p>Nach festgelegter Zeit prüfen: Ist das Problem wirklich verschwunden?</p></div>
@@ -430,9 +485,54 @@
   </main>
 </section>
 
-<!-- ============ 3 Warum-Kette ============ -->
-<div class="caption">3 · Warum-Kette (Kern der Methode)</div>
-<section class="screen" id="s3-kette">
+<!-- ============ 3 Ishikawa ============ -->
+<div class="caption">3 · Ishikawa-Diagramm: mögliche Ursachen in die Breite sammeln, dann mit 5 Warum in die Tiefe</div>
+<section class="screen" id="s3-ishikawa">
+  <header class="app-header">
+    <div class="brand"><span class="logo">5W</span></div>
+    <div class="tabs"><span class="tab">Alle Analysen</span><span class="tab active">Lange Wartezeit am Samstag <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg"><span class="done"><i class="num">✓</i>Problem</span><span class="on"><i class="num">2</i>Warum-Analyse</span><span><i class="num">3</i>Maßnahmen</span><span><i class="num">4</i>Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="row" style="margin-bottom:12px">
+      <span class="sub" style="font-size:13px;white-space:nowrap">Ishikawa für</span>
+      <span class="sel-box"><span class="chip acc sm">W1</span>Küche kam mit Pommes nicht hinterher ▾</span>
+      <span class="sel-box" style="font-weight:500">Kategorien: <b>6M</b> ▾</span>
+      <span class="spacer"></span>
+      <div class="seg"><span class="on">⋲ Ishikawa</span><span>☰ Kette</span><span>⑂ Baum</span></div>
+    </div>
+    <div class="card fish">
+      <svg class="bones" viewBox="0 0 1240 560" preserveAspectRatio="none"><line x1="24" y1="280" x2="1004" y2="280" stroke="#344054" stroke-width="3.5"/><path d="M1004 271 L1012 280 L1004 289" stroke="#344054" stroke-width="3" stroke-linejoin="round"/><line x1="270" y1="50" x2="380" y2="280" stroke="#667085" stroke-width="2"/><line x1="278" y1="100" x2="294" y2="100" stroke="#98a2b3" stroke-width="1.5"/><line x1="306" y1="158" x2="322" y2="158" stroke="#98a2b3" stroke-width="1.5"/><line x1="333" y1="216" x2="349" y2="216" stroke="#98a2b3" stroke-width="1.5"/><line x1="580" y1="50" x2="690" y2="280" stroke="#667085" stroke-width="2"/><line x1="588" y1="100" x2="604" y2="100" stroke="#98a2b3" stroke-width="1.5"/><line x1="616" y1="158" x2="632" y2="158" stroke="#98a2b3" stroke-width="1.5"/><line x1="643" y1="216" x2="659" y2="216" stroke="#98a2b3" stroke-width="1.5"/><line x1="890" y1="50" x2="1000" y2="280" stroke="#667085" stroke-width="2"/><line x1="898" y1="100" x2="914" y2="100" stroke="#98a2b3" stroke-width="1.5"/><line x1="926" y1="158" x2="942" y2="158" stroke="#98a2b3" stroke-width="1.5"/><line x1="270" y1="510" x2="380" y2="280" stroke="#667085" stroke-width="2"/><line x1="278" y1="460" x2="294" y2="460" stroke="#98a2b3" stroke-width="1.5"/><line x1="306" y1="402" x2="322" y2="402" stroke="#98a2b3" stroke-width="1.5"/><line x1="580" y1="510" x2="690" y2="280" stroke="#667085" stroke-width="2"/><line x1="588" y1="460" x2="604" y2="460" stroke="#98a2b3" stroke-width="1.5"/><line x1="616" y1="402" x2="632" y2="402" stroke="#98a2b3" stroke-width="1.5"/><line x1="890" y1="510" x2="1000" y2="280" stroke="#667085" stroke-width="2"/><line x1="898" y1="460" x2="914" y2="460" stroke="#98a2b3" stroke-width="1.5"/><line x1="926" y1="402" x2="942" y2="402" stroke="#98a2b3" stroke-width="1.5"/></svg>
+      <div class="cat" style="left:270px;top:16px">Mensch <em>3</em></div><div class="cause y" style="left:16px;top:88px"><span><i>✓</i><b>Nur 1 Person in der Küche</b> <span class="tow">→ W2</span></span></div><div class="cause n" style="left:44px;top:146px"><span><i>✕</i><b>Aushilfe kennt Fritteuse 2 kaum</b></span></div><div class="cause q" style="left:71px;top:204px"><span><i>?</i><b>Hektik durch lange Schlange</b></span></div><div class="cat" style="left:580px;top:16px">Maschine <em>3</em></div><div class="cause y sel" style="left:326px;top:88px"><span><i>✓</i><b>Fritteuse 2 überhitzt</b> <span class="tow">→ W2</span></span></div><div class="cause n" style="left:354px;top:146px"><span><i>✕</i><b>Kassensystem reagiert langsam</b></span></div><div class="cause q" style="left:381px;top:204px"><span><i>?</i><b>Abluft zieht schwach</b></span></div><div class="cat" style="left:890px;top:16px">Methode <em>2</em></div><div class="cause q" style="left:636px;top:88px"><span><i>?</i><b>Bons nicht nach Garzeit sortiert</b></span></div><div class="cause q" style="left:664px;top:146px"><span><i>?</i><b>Kein Vertretungsplan</b></span></div><div class="cat" style="left:270px;top:514px">Material <em>2</em></div><div class="cause n" style="left:16px;top:448px"><span><i>✕</i><b>Pommes direkt aus dem Tiefkühler</b></span></div><div class="cause q" style="left:44px;top:390px"><span><i>?</i><b>Frittieröl 6 Tage alt</b></span></div><div class="cat" style="left:580px;top:514px">Milieu <em>2</em></div><div class="cause n" style="left:326px;top:448px"><span><i>✕</i><b>Mehr Bestellungen als üblich</b> <span class="tow">→ W2</span></span></div><div class="cause q" style="left:354px;top:390px"><span><i>?</i><b>34 °C im Truck</b></span></div><div class="cat" style="left:890px;top:514px">Messung <em>2</em></div><div class="cause q" style="left:636px;top:448px"><span><i>?</i><b>Keine Anzeige der Wartezeit</b></span></div><div class="cause y" style="left:664px;top:390px"><span><i>✓</i><b>Öltemperatur wird nicht abgelesen</b></span></div>
+      <div class="head"><small>Wirkung · W1</small>Küche kam mit Pommes nicht hinterher<div class="sub" style="font-weight:500;font-size:11.5px;margin-top:4px">Problem: bis zu 40 Min Wartezeit</div></div>
+      <div class="legend" style="position:absolute;left:1012px;top:360px;width:200px;flex-direction:column;align-items:flex-start;gap:5px"><span style="color:var(--good);font-weight:700">✓ belegt</span><span style="color:var(--warn);font-weight:700">? offen</span><span>✕ ausgeschlossen</span><span><span class="chip acc sm">→ W2</span> in Warum-Analyse</span><span style="color:var(--accent);font-weight:600">Klick auf Gräte: + Ursache</span></div>
+    </div>
+    <div class="ish-foot">
+      <div class="card pad">
+        <h3>In der Warum-Analyse (3)</h3>
+        <ul>
+          <li><span class="chip good sm">✓</span>Fritteuse 2: Übertemperatur<span class="chip sm">Maschine</span></li>
+          <li><span class="chip good sm">✓</span>Nur 1 Person in der Küche<span class="chip sm">Mensch</span></li>
+          <li><span class="chip bad sm">✕</span>Mehr Bestellungen als üblich<span class="chip sm">Milieu</span></li>
+        </ul>
+      </div>
+      <div class="card pad">
+        <h3>Noch offen (7)</h3>
+        <div class="sub" style="font-size:12.5px">Prüfen und belegen oder ausschließen – erst dann als Zweig weiterfragen.</div>
+        <div class="row" style="margin-top:10px;gap:8px"><button class="btn sm">„Fritteuse 2“ ist ausgewählt</button><button class="btn sm primary">→ Als W2-Zweig weiterfragen</button></div>
+      </div>
+      <div class="card pad">
+        <h3>Breite vor Tiefe</h3>
+        <div class="sub" style="font-size:12.5px">Ishikawa sammelt mögliche Ursachen nach Kategorien, damit nichts übersehen wird. 5 Warum verfolgt dann die belegten Ursachen bis zur Grundursache. Ein Diagramm je Ebene möglich.</div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 4 Warum-Kette ============ -->
+<div class="caption">4 · Warum-Kette (Kern der Methode)</div>
+<section class="screen" id="s4-kette">
   <header class="app-header">
     <div class="brand"><span class="logo">5W</span></div>
     <div class="tabs"><span class="tab">Alle Analysen</span><span class="tab active">Lange Wartezeit am Samstag <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
@@ -442,8 +542,9 @@
   <main>
     <div class="row">
       <div class="lens"><span class="on"><i style="background:var(--lens-occ)"></i>Warum aufgetreten? <em>5</em></span><span><i style="background:var(--lens-det)"></i>Warum nicht entdeckt? <em>3</em></span><span><i style="background:var(--lens-sys)"></i>Warum im System möglich? <em>2</em></span></div>
+      <span class="opt-note">optional · <a>Blickwinkel …</a></span>
       <span class="spacer"></span>
-      <div class="seg"><span class="on">☰ Kette</span><span>⑂ Baum</span></div>
+      <div class="seg"><span>⋲ Ishikawa</span><span class="on">☰ Kette</span><span>⑂ Baum</span></div>
     </div>
 
     <div class="kpis">
@@ -504,8 +605,8 @@
 </section>
 
 <!-- ============ 4 Baum ============ -->
-<div class="caption">4 · Warum-Baum: Verzweigungen, verworfene Annahmen und die drei Blickwinkel (3 × 5 Warum)</div>
-<section class="screen" id="s4-baum">
+<div class="caption">5 · Warum-Baum: Verzweigungen, verworfene Annahmen, optionale Blickwinkel (3 × 5 Warum)</div>
+<section class="screen" id="s5-baum">
   <header class="app-header">
     <div class="brand"><span class="logo">5W</span></div>
     <div class="tabs"><span class="tab">Alle Analysen</span><span class="tab active">Lange Wartezeit am Samstag <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
@@ -522,8 +623,8 @@
       </div>
       <span class="spacer"></span>
       <button class="btn sm">⤢ Einpassen</button>
-      <button class="btn sm">Alle Blickwinkel</button>
-      <div class="seg"><span>☰ Kette</span><span class="on">⑂ Baum</span></div>
+      <span class="opt-note">Blickwinkel 2 + 3 optional · <a>Einstellungen</a></span>
+      <div class="seg"><span>⋲ Ishikawa</span><span>☰ Kette</span><span class="on">⑂ Baum</span></div>
     </div>
 
     <div class="card" style="overflow:hidden">
@@ -538,7 +639,7 @@
                 <div class="node"><small>W1 <span class="st chip good sm">✓</span></small>Küche kam mit Pommes nicht hinterher</div>
                 <ul>
                   <li>
-                    <div class="node"><small>W2 <span class="st chip good sm">✓</span></small>Fritteuse 2 war 25 Min aus</div>
+                    <div class="node"><small>W2 · Maschine <span class="st chip good sm">✓</span></small>Fritteuse 2 war 25 Min aus</div>
                     <ul><li>
                       <div class="node sel"><small>W3 <span class="st chip good sm">✓</span></small>Überhitzungsschutz hat abgeschaltet</div>
                       <ul><li>
@@ -548,10 +649,10 @@
                     </li></ul>
                   </li>
                   <li>
-                    <div class="node no"><small>W2 <span class="st chip bad sm">✕ widerlegt</span></small><span class="txt">Mehr Bestellungen als üblich</span></div>
+                    <div class="node no"><small>W2 · Milieu <span class="st chip bad sm">✕</span></small><span class="txt">Mehr Bestellungen als üblich</span></div>
                   </li>
                   <li>
-                    <div class="node"><small>W2 <span class="st chip good sm">✓</span></small>Nur 1 Person in der Küche statt 2</div>
+                    <div class="node"><small>W2 · Mensch <span class="st chip good sm">✓</span></small>Nur 1 Person in der Küche statt 2</div>
                     <ul><li>
                       <div class="node"><small>W3 <span class="st chip good sm">✓</span></small>Krankmeldung um 16 Uhr, kein Ersatz</div>
                       <ul><li><div class="node ghost">+ Warum?</div></li></ul>
@@ -597,8 +698,8 @@
 </section>
 
 <!-- ============ 5 Maßnahmen ============ -->
-<div class="caption">5 · Grundursachen &amp; Maßnahmen (Sofort → Abstellen → Vorbeugen, Wirksamkeit prüfen)</div>
-<section class="screen" id="s5-massnahmen">
+<div class="caption">6 · Grundursachen &amp; Maßnahmen (Sofort → Abstellen → Vorbeugen, Wirksamkeit, optional Wer/Bis)</div>
+<section class="screen" id="s6-massnahmen">
   <header class="app-header">
     <div class="brand"><span class="logo">5W</span></div>
     <div class="tabs"><span class="tab">Alle Analysen</span><span class="tab active">Lange Wartezeit am Samstag <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
@@ -606,7 +707,8 @@
     <div class="hdr-actions"><button class="btn ghost">Datei ▾</button></div>
   </header>
   <main>
-    <div class="editor" style="grid-template-columns: 1fr 300px">
+    <div class="row" style="margin-bottom:12px"><span class="opt-note">Optionale Spalten an: <span class="chip acc sm">Wer</span><span class="chip acc sm">Bis</span> · <a>Einstellungen</a></span><span class="spacer"></span><span class="chip warn">⚠ 1 überfällig</span></div>
+    <div class="editor" style="grid-template-columns: 1fr 268px">
       <div>
         <!-- Sofortmaßnahme gegen das Symptom -->
         <div class="card rc-card">
@@ -614,8 +716,8 @@
             <span class="mark" style="background:var(--warn)">!</span>
             <div style="flex:1"><div class="t">Symptom eindämmen</div><div class="p">Problem: bis zu 40 Min Wartezeit</div></div>
           </div>
-          <div class="m-row th"><span>Art</span><span>Maßnahme</span><span>Stärke</span><span>Wirksamkeit prüfen</span><span>Status</span></div>
-          <div class="m-row"><span class="type sofort">⚡ Sofort</span><span>Filter gereinigt, Fritteuse 2 wieder in Betrieb</span><span class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><em>technisch</em></span><span class="eff">Fritteuse läuft am Sa 11.10. ohne Ausfall<small>bei der nächsten Schicht</small></span><span class="chip good">✓ wirksam</span></div>
+          <div class="m-row th"><span>Art</span><span>Maßnahme</span><span>Stärke</span><span>Wirksamkeit prüfen</span><span>Wer</span><span>Bis</span><span>Status</span></div>
+          <div class="m-row"><span class="type sofort">⚡ Sofort</span><span>Filter gereinigt, Fritteuse 2 wieder in Betrieb</span><span class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="eff">Fritteuse läuft am Sa 11.10. ohne Ausfall<small>bei der nächsten Schicht</small></span><span class="who"><span class="avatar" style="background:#0e7490">AL</span>Aylin</span><span class="due">4.10.<small>erledigt</small></span><span class="chip good">✓ wirksam</span></div>
         </div>
 
         <!-- Grundursache 1 -->
@@ -625,9 +727,9 @@
             <div style="flex:1"><div class="t">Filterreinigung fehlt im Reinigungsplan</div><div class="p"><span style="color:var(--lens-occ);font-weight:650">● Warum aufgetreten?</span> · Ebene W5</div></div>
             <span class="chip">2 Maßnahmen</span>
           </div>
-          <div class="m-row th"><span>Art</span><span>Maßnahme</span><span>Stärke</span><span>Wirksamkeit prüfen</span><span>Status</span></div>
-          <div class="m-row"><span class="type abstell">◎ Abstellen</span><span>Fettfilter wöchentlich (Mo) in den Reinigungsplan aufnehmen, mit Foto-Anleitung</span><span class="strength"><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i><em>organisatorisch</em></span><span class="eff">4 Wochen kein Abschalten durch Überhitzung<small>Prüfen nach 4 Wochen</small></span><span class="chip info">umgesetzt</span></div>
-          <div class="m-row"><span class="type vorbeug">⛨ Vorbeugen</span><span>Zweiten Filter als Wechselteil kaufen – getauscht statt gereinigt</span><span class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><em>ersetzen</em></span><span class="eff">Wechsel jeden Montag im Plan abgehakt<small>Prüfen nach 8 Wochen</small></span><span class="chip">offen</span></div>
+          <div class="m-row th"><span>Art</span><span>Maßnahme</span><span>Stärke</span><span>Wirksamkeit prüfen</span><span>Wer</span><span>Bis</span><span>Status</span></div>
+          <div class="m-row"><span class="type abstell">◎ Abstellen</span><span>Fettfilter wöchentlich (Mo) in den Reinigungsplan aufnehmen, mit Foto-Anleitung</span><span class="strength"><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i></span><span class="eff">4 Wochen kein Abschalten durch Überhitzung<small>Prüfen am 3.11.</small></span><span class="who"><span class="avatar" style="background:#f59f00">FK</span>Fritz</span><span class="due">6.10.<small>erledigt</small></span><span class="chip info">umgesetzt</span></div>
+          <div class="m-row"><span class="type vorbeug">⛨ Vorbeugen</span><span>Zweiten Filter als Wechselteil kaufen – getauscht statt gereinigt</span><span class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="eff">Wechsel jeden Montag im Plan abgehakt<small>Prüfen nach 8 Wochen</small></span><span class="who"><span class="avatar" style="background:#f59f00">FK</span>Fritz</span><span class="due late">⚠ 10.10.<small>überfällig</small></span><span class="chip">offen</span></div>
         </div>
 
         <!-- Grundursache 2 -->
@@ -637,9 +739,9 @@
             <div style="flex:1"><div class="t">Keine Prüfliste beim Öffnen des Trucks</div><div class="p"><span style="color:var(--lens-det);font-weight:650">● Warum nicht entdeckt?</span> · Ebene W3</div></div>
             <span class="chip">2 Maßnahmen</span>
           </div>
-          <div class="m-row th"><span>Art</span><span>Maßnahme</span><span>Stärke</span><span>Wirksamkeit prüfen</span><span>Status</span></div>
-          <div class="m-row"><span class="type abstell">◎ Abstellen</span><span>Öffnungs-Checkliste mit Sichtprüfung Filter und Temperatur (≤ 180 °C)</span><span class="strength"><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i><em>organisatorisch</em></span><span class="eff">Liste an 8 von 8 Markttagen ausgefüllt<small>Prüfen nach 4 Wochen</small></span><span class="chip info">umgesetzt</span></div>
-          <div class="m-row"><span class="type abstell">◎ Abstellen</span><span>Team zum Thema Überhitzung schulen</span><span class="strength"><i class="mid"></i><i></i><i></i><i></i><i></i><em>Schulung</em></span><span class="eff" style="color:var(--bad)">– fehlt –<small>Woran merkt man, dass es wirkt?</small></span><span class="chip">offen</span></div>
+          <div class="m-row th"><span>Art</span><span>Maßnahme</span><span>Stärke</span><span>Wirksamkeit prüfen</span><span>Wer</span><span>Bis</span><span>Status</span></div>
+          <div class="m-row"><span class="type abstell">◎ Abstellen</span><span>Öffnungs-Checkliste mit Sichtprüfung Filter und Temperatur (≤ 180 °C)</span><span class="strength"><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i></span><span class="eff">Liste an 8 von 8 Markttagen ausgefüllt<small>Prüfen am 5.11.</small></span><span class="who"><span class="avatar" style="background:#7c3aed">JM</span>Jonas</span><span class="due">8.10.<small>erledigt</small></span><span class="chip info">umgesetzt</span></div>
+          <div class="m-row"><span class="type abstell">◎ Abstellen</span><span>Team zum Thema Überhitzung schulen</span><span class="strength"><i class="mid"></i><i></i><i></i><i></i><i></i></span><span class="eff" style="color:var(--bad)">– fehlt –<small>Woran merkt man, dass es wirkt?</small></span><span class="empty-opt">+ Wer</span><span class="empty-opt">+ Bis</span><span class="chip">offen</span></div>
         </div>
 
         <button class="btn dashed">+ Maßnahme</button>
@@ -651,6 +753,7 @@
           <div class="chk"><span class="ic y">✓</span><div><b>Symptom eingedämmt</b><p>Sofortmaßnahme wirksam</p></div></div>
           <div class="chk"><span class="ic y">✓</span><div><b>Jede Grundursache abgestellt</b><p>2 von 2 haben eine Abstellmaßnahme</p></div></div>
           <div class="chk"><span class="ic q">!</span><div><b>Wirksamkeit messbar</b><p>„Team schulen“ ohne Prüfkriterium</p></div></div>
+          <div class="chk"><span class="ic n">!</span><div><b>Termin überschritten</b><p>Wechselfilter (Fritz) war bis 10.10. geplant</p></div></div>
           <div class="chk"><span class="ic q">!</span><div><b>Starke Maßnahmen</b><p>„Schulen“ allein wirkt schwach – lieber Ablauf oder Technik ändern</p></div></div>
         </div>
         <div class="card pad">
@@ -675,8 +778,8 @@
 </section>
 
 <!-- ============ 6 Bericht ============ -->
-<div class="caption">6 · Bericht auf einer Seite (Drucken/PDF, Markdown)</div>
-<section class="screen" id="s6-bericht">
+<div class="caption">7 · Bericht auf einer Seite (Drucken/PDF, Markdown)</div>
+<section class="screen" id="s7-bericht">
   <header class="app-header">
     <div class="brand"><span class="logo">5W</span></div>
     <div class="tabs"><span class="tab">Alle Analysen</span><span class="tab active">Lange Wartezeit am Samstag <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
@@ -713,12 +816,12 @@
         <div style="grid-column:1/-1">
           <h4>5 · Maßnahmen</h4>
           <table>
-            <tr><th>Art</th><th>Maßnahme</th><th>gegen</th><th>Wirksam, wenn …</th><th>Status</th></tr>
-            <tr><td>Sofort</td><td>Filter gereinigt, Fritteuse wieder in Betrieb</td><td>Symptom</td><td>Sa 11.10. ohne Ausfall</td><td>✓ wirksam</td></tr>
-            <tr><td>Abstellen</td><td>Fettfilter wöchentlich in den Reinigungsplan</td><td>◎1</td><td>4 Wochen kein Abschalten</td><td>umgesetzt</td></tr>
-            <tr><td>Vorbeugen</td><td>Wechselfilter kaufen</td><td>◎1</td><td>Wechsel jeden Montag abgehakt</td><td>offen</td></tr>
-            <tr><td>Abstellen</td><td>Öffnungs-Checkliste (Filter, Temperatur)</td><td>◎2</td><td>8 von 8 Markttagen ausgefüllt</td><td>umgesetzt</td></tr>
-            <tr><td>Abstellen</td><td>Team zu Überhitzung schulen</td><td>◎2</td><td style="color:var(--bad)">– fehlt –</td><td>offen</td></tr>
+            <tr><th>Art</th><th>Maßnahme</th><th>gegen</th><th>Wirksam, wenn …</th><th>Wer</th><th>Bis</th><th>Status</th></tr>
+            <tr><td>Sofort</td><td>Filter gereinigt, Fritteuse wieder in Betrieb</td><td>Symptom</td><td>Sa 11.10. ohne Ausfall</td><td>Aylin</td><td>4.10.</td><td>✓ wirksam</td></tr>
+            <tr><td>Abstellen</td><td>Fettfilter wöchentlich in den Reinigungsplan</td><td>◎1</td><td>4 Wochen kein Abschalten</td><td>Fritz</td><td>6.10.</td><td>umgesetzt</td></tr>
+            <tr><td>Vorbeugen</td><td>Wechselfilter kaufen</td><td>◎1</td><td>Wechsel jeden Montag abgehakt</td><td>Fritz</td><td style="color:var(--bad)">10.10. ⚠</td><td>offen</td></tr>
+            <tr><td>Abstellen</td><td>Öffnungs-Checkliste (Filter, Temperatur)</td><td>◎2</td><td>8 von 8 Markttagen ausgefüllt</td><td>Jonas</td><td>8.10.</td><td>umgesetzt</td></tr>
+            <tr><td>Abstellen</td><td>Team zu Überhitzung schulen</td><td>◎2</td><td style="color:var(--bad)">– fehlt –</td><td>–</td><td>–</td><td>offen</td></tr>
           </table>
         </div>
         <div class="last" style="grid-column:1/-1;border-right:0">
@@ -730,9 +833,52 @@
   </main>
 </section>
 
-<!-- ============ 7 Mobil ============ -->
-<div class="caption">7 · Mobil (Warum-Kette)</div>
-<section class="screen mobile" id="s7-mobil">
+<!-- ============ 8 Einstellungen ============ -->
+<div class="caption">8 · Einstellungen der Analyse: optionale Blickwinkel, Ishikawa, Person &amp; Termin (Datei → Einstellungen)</div>
+<section class="screen" id="s8-einstellungen" style="height:820px">
+  <header class="app-header">
+    <div class="brand"><span class="logo">5W</span></div>
+    <div class="tabs"><span class="tab">Alle Analysen</span><span class="tab active">Lange Wartezeit am Samstag <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg"><span class="done"><i class="num">✓</i>Problem</span><span class="on"><i class="num">2</i>Warum-Analyse</span><span><i class="num">3</i>Maßnahmen</span><span><i class="num">4</i>Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main style="filter:grayscale(.2)">
+    <div class="card pad" style="height:760px">
+      <div class="chain-problem"><div style="flex:1"><div class="tag">Problem</div><b>Gäste warten bis zu 40 Min statt ≤ 10 Min; 12 gingen ohne Essen.</b></div></div>
+      <div class="ask">Warum?</div>
+      <div class="why"><div class="lvl"><b>1</b>W</div><div class="ans">Die Küche kam mit den Pommes nicht hinterher.</div><div></div></div>
+      <div class="ask">Warum?</div>
+      <div class="why"><div class="lvl"><b>2</b>W</div><div class="ans">Fritteuse 2 war 25 Minuten außer Betrieb.</div><div></div></div>
+    </div>
+  </main>
+  <div class="overlay">
+    <div class="dialog">
+      <div class="dlg-head"><h2>Einstellungen der Analyse</h2><span class="spacer"></span><span class="sub">✕</span></div>
+      <div class="dlg-sec">
+        <h3>Blickwinkel (3 × 5 Warum)</h3>
+        <div class="opt"><div><b><span style="color:var(--lens-occ)">●</span> Warum aufgetreten?</b><p>Die eigentliche Warum-Kette – immer an.</p></div><span class="switch fixed"></span></div>
+        <div class="opt"><div><b><span style="color:var(--lens-det)">●</span> Warum nicht entdeckt?</b><p>Warum fiel das Problem nicht früher auf? Führt zu Prüf- und Erkennungsmaßnahmen.</p></div><span class="switch on"></span></div>
+        <div class="opt"><div><b><span style="color:var(--lens-sys)">●</span> Warum im System möglich?</b><p>Welche Regel, Planung oder Organisation ließ es zu?</p></div><span class="switch on"></span></div>
+      </div>
+      <div class="dlg-sec">
+        <h3>Ishikawa-Diagramm</h3>
+        <div class="opt"><div><b>Ursachen vorab nach Kategorien sammeln</b><p>Zusätzliche Ansicht „Ishikawa“; ausgewählte Ursachen werden zu Zweigen der Warum-Analyse.</p></div><span class="switch on"></span></div>
+        <div class="sub-opts">Kategorien: <span class="chip acc">6M</span><span class="chip">4P (Dienstleistung)</span><span class="chip">8M</span><span class="chip">eigene …</span>
+          <span style="flex-basis:100%;height:0"></span><span class="chip">Mensch</span><span class="chip">Maschine</span><span class="chip">Methode</span><span class="chip">Material</span><span class="chip">Milieu</span><span class="chip">Messung</span><span class="chip" style="border-style:dashed;color:var(--muted)">+ Kategorie</span></div>
+      </div>
+      <div class="dlg-sec">
+        <h3>Maßnahmen</h3>
+        <div class="opt"><div><b>Verantwortliche Person („Wer“)</b><p>Freier Name je Maßnahme, Vorschläge aus dem Team der Analyse.</p></div><span class="switch on"></span></div>
+        <div class="opt"><div><b>Termin („Bis“)</b><p>Überschrittene Termine offener Maßnahmen werden markiert – keine Erinnerungen.</p></div><span class="switch on"></span></div>
+      </div>
+      <div class="dlg-foot"><label class="row" style="gap:6px;font-size:13px;color:var(--text-2)"><span class="check on">✓</span>Als Standard für neue Analysen</label><span class="spacer"></span><span class="sub" style="font-size:12px">Ausgeblendete Angaben bleiben erhalten.</span><button class="btn primary">Fertig</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 Mobil ============ -->
+<div class="caption">9 · Mobil (Warum-Kette)</div>
+<section class="screen mobile" id="s9-mobil">
   <div class="m-header"><span class="logo">5W</span><b style="flex:1;font-size:14px">Lange Wartezeit am Samstag</b><span class="sub">⋯</span></div>
   <div style="padding:10px 14px 0;display:flex;gap:6px;overflow:hidden"><span class="chip acc"><span style="color:var(--lens-occ)">●</span> Aufgetreten 5</span><span class="chip"><span style="color:var(--lens-det)">●</span> Nicht entdeckt 3</span><span class="chip"><span style="color:var(--lens-sys)">●</span> System 2</span></div>
   <div class="m-body">

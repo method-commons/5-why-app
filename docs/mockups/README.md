@@ -4,13 +4,15 @@ Statische Entwürfe (keine Funktion), im Stil der [Morphologischen Matrix](https
 
 | # | Ansicht | Datei |
 |---|---------|-------|
-| 1 | Übersicht aller Analysen (Problem, Phase Problem → Warum → Ursache → Maßnahmen → Wirksam, Kennzahlen, Grundursache bzw. wichtigster Hinweis), dazu der Ablauf der Methode in fünf Schritten | `s1-analysen.png` |
+| 1 | Übersicht aller Analysen (Problem, Phase Problem → Warum → Ursache → Maßnahmen → Wirksam, Kennzahlen, Grundursache bzw. wichtigster Hinweis, überfällige Maßnahmen), dazu der Ablauf der Methode in fünf Schritten | `s1-analysen.png` |
 | 2 | **Problem** beschreiben: 5W2H-Felder, Soll/Ist, Auswirkung, daraus die Problemaussage; Fakten & Belege, Team; Prüfung „konkret · messbar · ohne Ursache · ohne Lösung · belegt“ | `s2-problem.png` |
-| 3 | **Warum-Kette**: Problem → Warum? → Antwort, je Ebene mit Beleg und Status *belegt / vermutet / widerlegt*; Grundursache markieren; Prüfung der Kette (belegt, Ursache → Wirkung, keine Schuldzuweisung, im eigenen Einfluss, abstellbar) und **Daher-Probe** (Kette rückwärts gelesen) | `s3-kette.png` |
-| 4 | **Warum-Baum**: Verzweigungen bei mehreren Antworten, widerlegte Annahmen bleiben sichtbar; drei Blickwinkel (3 × 5 Warum): *Warum aufgetreten?*, *Warum nicht entdeckt?*, *Warum im System möglich?* | `s4-baum.png` |
-| 5 | **Maßnahmen** je Grundursache: *Sofort* (Symptom eindämmen), *Abstellen*, *Vorbeugen*; Stärke der Maßnahme (Beseitigen → Ersetzen → Technik → Organisation → Schulung), Kriterium für die Wirksamkeitsprüfung, Status *offen / umgesetzt / wirksam*; Übertragen auf ähnliche Stellen | `s5-massnahmen.png` |
-| 6 | **Bericht** auf einer Seite (A3-ähnlich) zum Drucken/als PDF oder als Markdown | `s6-bericht.png` |
-| 7 | Mobile Ansicht der Warum-Kette | `s7-mobil.png` |
+| 3 | **Ishikawa-Diagramm** (optional): mögliche Ursachen einer Ebene nach Kategorien sammeln (6M, 4P, 8M oder eigene), je Ursache *belegt / offen / ausgeschlossen*; ausgewählte Ursachen werden zu Zweigen der Warum-Analyse („Breite vor Tiefe“) | `s3-ishikawa.png` |
+| 4 | **Warum-Kette**: Problem → Warum? → Antwort, je Ebene mit Beleg und Status *belegt / vermutet / widerlegt*; Grundursache markieren; Prüfung der Kette (belegt, Ursache → Wirkung, keine Schuldzuweisung, im eigenen Einfluss, abstellbar) und **Daher-Probe** (Kette rückwärts gelesen) | `s4-kette.png` |
+| 5 | **Warum-Baum**: Verzweigungen (mit Ishikawa-Kategorie), widerlegte Annahmen bleiben sichtbar; Blickwinkel *Warum aufgetreten?* sowie optional *Warum nicht entdeckt?* und *Warum im System möglich?* (3 × 5 Warum) | `s5-baum.png` |
+| 6 | **Maßnahmen** je Grundursache: *Sofort*, *Abstellen*, *Vorbeugen*; Stärke, Kriterium für die Wirksamkeitsprüfung, Status; optional **Wer** (verantwortliche Person) und **Bis** (Termin, überschrittene markiert); Übertragen auf ähnliche Stellen | `s6-massnahmen.png` |
+| 7 | **Bericht** auf einer Seite (A3-ähnlich) zum Drucken/als PDF oder als Markdown | `s7-bericht.png` |
+| 8 | **Einstellungen der Analyse** (Datei → Einstellungen): Blickwinkel 2 und 3, Ishikawa mit Kategorien, Person und Termin bei Maßnahmen ein-/ausschalten; als Standard für neue Analysen | `s8-einstellungen.png` |
+| 9 | Mobile Ansicht der Warum-Kette | `s9-mobil.png` |
 
 Beispieldaten: fiktive Analyse „Lange Wartezeit am Samstag“ beim Food-Truck (angelehnt an die Beispiele *Food-Truck* der beiden anderen Apps), dazu „Newsletter landet im Spam“ (Vereinsportal) und „Akkus fallen vorzeitig aus“ (Lastenrad-Verleih).
 
@@ -18,10 +20,11 @@ Screenshots neu erzeugen: jede `<section class="screen">` mit Playwright aufnehm
 
 ## Abgrenzung
 
-Die App unterstützt die **Methodik** (Problem sauber beschreiben, Warum-Fragen mit Belegen, Grundursache statt Schuldige, Maßnahmen gegen die Ursache, Wirksamkeit prüfen) und ist **kein Maßnahmen- oder Projektmanagement-Werkzeug**: keine Zuständigkeiten, Termine, Erinnerungen oder Ticket-Anbindung. „Prüfen nach 4 Wochen“ ist ein Hinweis im Text, keine Frist.
+Die App unterstützt die **Methodik** (Problem sauber beschreiben, Ursachen sammeln, Warum-Fragen mit Belegen, Grundursache statt Schuldige, Maßnahmen gegen die Ursache, Wirksamkeit prüfen) und ist **kein Maßnahmen- oder Projektmanagement-Werkzeug**. Person und Termin je Maßnahme sind optional und dienen der Übersicht: überschrittene Termine werden markiert, es gibt aber keine Erinnerungen, Benachrichtigungen oder Ticket-Anbindung.
 
-## Offene Fragen
+## Entscheidungen
 
-- Sollen Maßnahmen doch optional eine verantwortliche Person und ein Datum bekommen (bei 5 Warum üblich, widerspricht aber der Abgrenzung der Schwester-Apps)?
-- Blickwinkel „Nicht entdeckt“ / „System“ immer anbieten oder erst auf Wunsch einschalten (wie die Bewertung in der Matrix-App)?
-- Übergang zu anderen Methoden, z. B. Ishikawa-Diagramm als Vorstufe für Verzweigungen?
+- Maßnahmen bekommen optional **Person** und **Termin** (je Analyse zuschaltbar).
+- Die Blickwinkel **„Warum nicht entdeckt?“** und **„Warum im System möglich?“** sind optional (je Analyse zuschaltbar); „Warum aufgetreten?“ ist immer an.
+- **Ishikawa-Diagramm** als optionale Vorstufe: Ursachen einer Ebene in die Breite sammeln, ausgewählte als Zweige mit 5 Warum in die Tiefe verfolgen.
+- Optionale Bereiche sind wie in der Matrix-App standardmäßig aus; ausgeblendete Angaben bleiben erhalten.
