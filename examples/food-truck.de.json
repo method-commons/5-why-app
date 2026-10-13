@@ -1,0 +1,392 @@
+{
+  "schema": 1,
+  "id": "example-food-truck",
+  "name": "Lange Wartezeit am Samstag",
+  "context": "Food-Truck „Fritz & Fries“ · Wochenmarkt am Domplatz",
+  "color": "#f59f00",
+  "createdAt": "2026-10-04T20:00:00.000Z",
+  "updatedAt": "2026-10-13T09:12:00.000Z",
+  "settings": {
+    "detection": true,
+    "system": true,
+    "ishikawa": true,
+    "owner": true,
+    "due": true
+  },
+  "problem": {
+    "what": "Lange Wartezeit an der Ausgabe – Gäste verlassen die Schlange",
+    "where": "Food-Truck am Wochenmarkt, Domplatz",
+    "when": "Samstag, 4.10.2026, 18:30–19:15",
+    "target": "höchstens 10 Min Wartezeit",
+    "actual": "bis zu 40 Min, 12 Gäste gegangen",
+    "who": "Gäste, Ausgabe-Team (2 Personen)",
+    "howFound": "Beschwerden von Gästen, Stornos im Kassenlog",
+    "impact": "ca. 180 € Umsatzverlust, 2 negative Bewertungen online",
+    "statement": "Am Samstag, 4.10., warteten Gäste am Food-Truck am Domplatz zwischen 18:30 und 19:15 bis zu 40 Min statt höchstens 10 Min auf ihr Essen; 12 Gäste gingen ohne Bestellung."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "text": "Kassenlog: 61 Bons zwischen 18:00 und 19:30 (Ø der letzten 4 Samstage: 64)"
+    },
+    {
+      "id": "f2",
+      "text": "Fritteuse 2 zeigte 18:35–19:00 „Übertemperatur“ (Foto vom Display)"
+    },
+    {
+      "id": "f3",
+      "text": "Stornos: 12 bezahlte Bestellungen erstattet"
+    }
+  ],
+  "team": [
+    "Fritz",
+    "Aylin",
+    "Jonas"
+  ],
+  "lensQuestions": {
+    "detection": "Warum fiel der zugesetzte Filter nicht vorher auf?",
+    "system": "Warum fehlte der Filter im Reinigungsplan?"
+  },
+  "nodes": [
+    {
+      "id": "n1",
+      "lens": "occurrence",
+      "parentId": null,
+      "question": "",
+      "text": "Die Küche kam mit den Pommes nicht hinterher.",
+      "evidence": "Bons warteten im Schnitt 28 Min auf „Pommes fertig“ (Küchenmonitor)",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "n2",
+      "lens": "occurrence",
+      "parentId": "n1",
+      "question": "",
+      "text": "Fritteuse 2 war 25 Minuten außer Betrieb, nur eine lief.",
+      "evidence": "Foto vom Display „Übertemperatur“, 18:35",
+      "state": "confirmed",
+      "root": false,
+      "category": "Maschine"
+    },
+    {
+      "id": "n3",
+      "lens": "occurrence",
+      "parentId": "n1",
+      "question": "",
+      "text": "Es gab mehr Bestellungen als an üblichen Samstagen.",
+      "evidence": "Kassenlog: 61 Bons, Ø der letzten 4 Samstage 64",
+      "state": "refuted",
+      "root": false,
+      "category": "Milieu"
+    },
+    {
+      "id": "n4",
+      "lens": "occurrence",
+      "parentId": "n1",
+      "question": "",
+      "text": "Nur eine Person in der Küche statt zwei.",
+      "evidence": "Schichtplan, Krankmeldung um 16 Uhr",
+      "state": "confirmed",
+      "root": false,
+      "category": "Mensch"
+    },
+    {
+      "id": "n5",
+      "lens": "occurrence",
+      "parentId": "n2",
+      "question": "",
+      "text": "Der Überhitzungsschutz hat abgeschaltet.",
+      "evidence": "Fehlercode E3 im Gerätespeicher, Handbuch S. 14",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "n6",
+      "lens": "occurrence",
+      "parentId": "n5",
+      "question": "",
+      "text": "Der Fettfilter der Abluft war zugesetzt – die Wärme staute sich.",
+      "evidence": "Filter sah stark verschmutzt aus",
+      "state": "assumed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "n7",
+      "lens": "occurrence",
+      "parentId": "n6",
+      "question": "",
+      "text": "Die Filterreinigung steht in keinem Reinigungsplan – nur die Fritteuse selbst.",
+      "evidence": "Reinigungsplan Küche, Stand März",
+      "state": "confirmed",
+      "root": true,
+      "category": ""
+    },
+    {
+      "id": "n8",
+      "lens": "occurrence",
+      "parentId": "n4",
+      "question": "",
+      "text": "Für Krankmeldungen am Wochenende gibt es keinen Vertretungsplan.",
+      "evidence": "",
+      "state": "assumed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "d1",
+      "lens": "detection",
+      "parentId": null,
+      "question": "",
+      "text": "Der Filter liegt verdeckt hinter der Abzugshaube.",
+      "evidence": "Begehung im Truck",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "d2",
+      "lens": "detection",
+      "parentId": "d1",
+      "question": "",
+      "text": "Die Warnzeichen (Fettgeruch, Öl über 190 °C) kannte niemand im Team.",
+      "evidence": "Gespräch im Team",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "d3",
+      "lens": "detection",
+      "parentId": "d2",
+      "question": "",
+      "text": "Beim Öffnen des Trucks gibt es keine Prüfliste.",
+      "evidence": "Ablauf „Truck öffnen“ ist nur mündlich bekannt",
+      "state": "confirmed",
+      "root": true,
+      "category": ""
+    },
+    {
+      "id": "s1",
+      "lens": "system",
+      "parentId": null,
+      "question": "",
+      "text": "Beim Kauf von Fritteuse 2 wurde der Reinigungsplan nicht angepasst.",
+      "evidence": "",
+      "state": "assumed",
+      "root": false,
+      "category": ""
+    }
+  ],
+  "preset": "6m",
+  "categories": [
+    {
+      "id": "c1",
+      "name": "Mensch"
+    },
+    {
+      "id": "c2",
+      "name": "Maschine"
+    },
+    {
+      "id": "c3",
+      "name": "Methode"
+    },
+    {
+      "id": "c4",
+      "name": "Material"
+    },
+    {
+      "id": "c5",
+      "name": "Milieu"
+    },
+    {
+      "id": "c6",
+      "name": "Messung"
+    }
+  ],
+  "causes": [
+    {
+      "id": "k1",
+      "anchorId": "n1",
+      "categoryId": "c1",
+      "text": "Nur eine Person in der Küche",
+      "state": "confirmed",
+      "nodeId": "n4"
+    },
+    {
+      "id": "k2",
+      "anchorId": "n1",
+      "categoryId": "c1",
+      "text": "Aushilfe kennt Fritteuse 2 kaum",
+      "state": "excluded",
+      "nodeId": null
+    },
+    {
+      "id": "k3",
+      "anchorId": "n1",
+      "categoryId": "c1",
+      "text": "Hektik durch lange Schlange",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k4",
+      "anchorId": "n1",
+      "categoryId": "c2",
+      "text": "Fritteuse 2 überhitzt",
+      "state": "confirmed",
+      "nodeId": "n2"
+    },
+    {
+      "id": "k5",
+      "anchorId": "n1",
+      "categoryId": "c2",
+      "text": "Kassensystem reagiert langsam",
+      "state": "excluded",
+      "nodeId": null
+    },
+    {
+      "id": "k6",
+      "anchorId": "n1",
+      "categoryId": "c2",
+      "text": "Abluft zieht schwach",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k7",
+      "anchorId": "n1",
+      "categoryId": "c3",
+      "text": "Bons nicht nach Garzeit sortiert",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k8",
+      "anchorId": "n1",
+      "categoryId": "c3",
+      "text": "Kein Vertretungsplan",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k9",
+      "anchorId": "n1",
+      "categoryId": "c4",
+      "text": "Pommes direkt aus dem Tiefkühler",
+      "state": "excluded",
+      "nodeId": null
+    },
+    {
+      "id": "k10",
+      "anchorId": "n1",
+      "categoryId": "c4",
+      "text": "Frittieröl 6 Tage alt",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k11",
+      "anchorId": "n1",
+      "categoryId": "c5",
+      "text": "Mehr Bestellungen als üblich",
+      "state": "excluded",
+      "nodeId": "n3"
+    },
+    {
+      "id": "k12",
+      "anchorId": "n1",
+      "categoryId": "c5",
+      "text": "34 °C im Truck",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k13",
+      "anchorId": "n1",
+      "categoryId": "c6",
+      "text": "Keine Anzeige der Wartezeit",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k14",
+      "anchorId": "n1",
+      "categoryId": "c6",
+      "text": "Öltemperatur wird nicht abgelesen",
+      "state": "confirmed",
+      "nodeId": null
+    }
+  ],
+  "actions": [
+    {
+      "id": "m1",
+      "rootId": null,
+      "kind": "immediate",
+      "text": "Filter gereinigt, Fritteuse 2 wieder in Betrieb",
+      "strength": null,
+      "check": "Fritteuse läuft am nächsten Samstag ohne Ausfall",
+      "checkDate": "",
+      "owner": "Aylin",
+      "due": "2026-10-04",
+      "status": "effective"
+    },
+    {
+      "id": "m2",
+      "rootId": "n7",
+      "kind": "corrective",
+      "text": "Fettfilter wöchentlich (montags) in den Reinigungsplan aufnehmen, mit Foto-Anleitung",
+      "strength": "organisational",
+      "check": "4 Wochen kein Abschalten durch Überhitzung",
+      "checkDate": "2026-11-03",
+      "owner": "Fritz",
+      "due": "2026-10-06",
+      "status": "done"
+    },
+    {
+      "id": "m3",
+      "rootId": "n7",
+      "kind": "preventive",
+      "text": "Zweiten Filter als Wechselteil kaufen – tauschen statt reinigen",
+      "strength": "substitute",
+      "check": "Wechsel jeden Montag im Plan abgehakt",
+      "checkDate": "2026-12-01",
+      "owner": "Fritz",
+      "due": "2026-10-10",
+      "status": "open"
+    },
+    {
+      "id": "m4",
+      "rootId": "d3",
+      "kind": "corrective",
+      "text": "Öffnungs-Checkliste mit Sichtprüfung Filter und Öltemperatur (≤ 180 °C)",
+      "strength": "organisational",
+      "check": "Liste an 8 von 8 Markttagen ausgefüllt",
+      "checkDate": "2026-11-05",
+      "owner": "Jonas",
+      "due": "2026-10-08",
+      "status": "done"
+    },
+    {
+      "id": "m5",
+      "rootId": "d3",
+      "kind": "corrective",
+      "text": "Team zum Thema Überhitzung schulen",
+      "strength": "training",
+      "check": "",
+      "checkDate": "",
+      "owner": "",
+      "due": "",
+      "status": "open"
+    }
+  ],
+  "transfer": "Fritteuse 1 und die Abzugshaube am Grill ebenso prüfen.",
+  "lessons": "Bei neuen Geräten den Reinigungsplan im selben Zug anpassen.",
+  "confirmed": [
+    "causal:occurrence"
+  ]
+}
