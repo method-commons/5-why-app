@@ -1,0 +1,392 @@
+{
+  "schema": 1,
+  "id": "example-food-truck",
+  "name": "Long wait on Saturday",
+  "context": "Food truck “Fritz & Fries” · farmers’ market, Cathedral Square",
+  "color": "#f59f00",
+  "createdAt": "2026-10-04T20:00:00.000Z",
+  "updatedAt": "2026-10-13T09:12:00.000Z",
+  "settings": {
+    "detection": true,
+    "system": true,
+    "ishikawa": true,
+    "owner": true,
+    "due": true
+  },
+  "problem": {
+    "what": "Long wait at the counter – guests leave the queue",
+    "where": "Food truck at the farmers’ market, Cathedral Square",
+    "when": "Saturday, 4 Oct 2026, 6:30–7:15 pm",
+    "target": "10 min wait at most",
+    "actual": "up to 40 min, 12 guests left",
+    "who": "Guests, counter team (2 people)",
+    "howFound": "Guest complaints, refunds in the till log",
+    "impact": "about €180 lost revenue, 2 negative online reviews",
+    "statement": "On Saturday, 4 Oct, guests at the food truck on Cathedral Square waited up to 40 min instead of at most 10 min for their food between 6:30 and 7:15 pm; 12 guests left without ordering."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "text": "Till log: 61 orders between 6:00 and 7:30 pm (average of the last 4 Saturdays: 64)"
+    },
+    {
+      "id": "f2",
+      "text": "Fryer 2 showed “over temperature” from 6:35 to 7:00 pm (photo of the display)"
+    },
+    {
+      "id": "f3",
+      "text": "Refunds: 12 paid orders refunded"
+    }
+  ],
+  "team": [
+    "Fritz",
+    "Aylin",
+    "Jonas"
+  ],
+  "lensQuestions": {
+    "detection": "Why was the clogged filter not noticed earlier?",
+    "system": "Why was the filter missing from the cleaning schedule?"
+  },
+  "nodes": [
+    {
+      "id": "n1",
+      "lens": "occurrence",
+      "parentId": null,
+      "question": "",
+      "text": "The kitchen could not keep up with the fries.",
+      "evidence": "Orders waited 28 min on average for “fries ready” (kitchen display)",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "n2",
+      "lens": "occurrence",
+      "parentId": "n1",
+      "question": "",
+      "text": "Fryer 2 was out of service for 25 minutes, only one was running.",
+      "evidence": "Photo of the display “over temperature”, 6:35 pm",
+      "state": "confirmed",
+      "root": false,
+      "category": "Machine"
+    },
+    {
+      "id": "n3",
+      "lens": "occurrence",
+      "parentId": "n1",
+      "question": "",
+      "text": "There were more orders than on a usual Saturday.",
+      "evidence": "Till log: 61 orders, average of the last 4 Saturdays 64",
+      "state": "refuted",
+      "root": false,
+      "category": "Milieu"
+    },
+    {
+      "id": "n4",
+      "lens": "occurrence",
+      "parentId": "n1",
+      "question": "",
+      "text": "Only one person in the kitchen instead of two.",
+      "evidence": "Shift plan, sick call at 4 pm",
+      "state": "confirmed",
+      "root": false,
+      "category": "Man"
+    },
+    {
+      "id": "n5",
+      "lens": "occurrence",
+      "parentId": "n2",
+      "question": "",
+      "text": "The overheat protection switched the fryer off.",
+      "evidence": "Error code E3 in the device memory, manual p. 14",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "n6",
+      "lens": "occurrence",
+      "parentId": "n5",
+      "question": "",
+      "text": "The grease filter of the extractor was clogged – heat built up.",
+      "evidence": "Filter looked heavily soiled",
+      "state": "assumed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "n7",
+      "lens": "occurrence",
+      "parentId": "n6",
+      "question": "",
+      "text": "Cleaning the filter is not on any cleaning schedule – only the fryer itself.",
+      "evidence": "Kitchen cleaning schedule, March version",
+      "state": "confirmed",
+      "root": true,
+      "category": ""
+    },
+    {
+      "id": "n8",
+      "lens": "occurrence",
+      "parentId": "n4",
+      "question": "",
+      "text": "There is no cover plan for sick calls at the weekend.",
+      "evidence": "",
+      "state": "assumed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "d1",
+      "lens": "detection",
+      "parentId": null,
+      "question": "",
+      "text": "The filter is hidden behind the extractor hood.",
+      "evidence": "Walk-through in the truck",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "d2",
+      "lens": "detection",
+      "parentId": "d1",
+      "question": "",
+      "text": "Nobody on the team knew the warning signs (smell of grease, oil above 190 °C).",
+      "evidence": "Team conversation",
+      "state": "confirmed",
+      "root": false,
+      "category": ""
+    },
+    {
+      "id": "d3",
+      "lens": "detection",
+      "parentId": "d2",
+      "question": "",
+      "text": "There is no checklist for opening the truck.",
+      "evidence": "The “opening the truck” routine is only passed on verbally",
+      "state": "confirmed",
+      "root": true,
+      "category": ""
+    },
+    {
+      "id": "s1",
+      "lens": "system",
+      "parentId": null,
+      "question": "",
+      "text": "The cleaning schedule was not updated when fryer 2 was bought.",
+      "evidence": "",
+      "state": "assumed",
+      "root": false,
+      "category": ""
+    }
+  ],
+  "preset": "6m",
+  "categories": [
+    {
+      "id": "c1",
+      "name": "Man"
+    },
+    {
+      "id": "c2",
+      "name": "Machine"
+    },
+    {
+      "id": "c3",
+      "name": "Method"
+    },
+    {
+      "id": "c4",
+      "name": "Material"
+    },
+    {
+      "id": "c5",
+      "name": "Milieu"
+    },
+    {
+      "id": "c6",
+      "name": "Measurement"
+    }
+  ],
+  "causes": [
+    {
+      "id": "k1",
+      "anchorId": "n1",
+      "categoryId": "c1",
+      "text": "Only one person in the kitchen",
+      "state": "confirmed",
+      "nodeId": "n4"
+    },
+    {
+      "id": "k2",
+      "anchorId": "n1",
+      "categoryId": "c1",
+      "text": "Temp barely knows fryer 2",
+      "state": "excluded",
+      "nodeId": null
+    },
+    {
+      "id": "k3",
+      "anchorId": "n1",
+      "categoryId": "c1",
+      "text": "Rush caused by the long queue",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k4",
+      "anchorId": "n1",
+      "categoryId": "c2",
+      "text": "Fryer 2 overheated",
+      "state": "confirmed",
+      "nodeId": "n2"
+    },
+    {
+      "id": "k5",
+      "anchorId": "n1",
+      "categoryId": "c2",
+      "text": "Till system responds slowly",
+      "state": "excluded",
+      "nodeId": null
+    },
+    {
+      "id": "k6",
+      "anchorId": "n1",
+      "categoryId": "c2",
+      "text": "Extractor draws weakly",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k7",
+      "anchorId": "n1",
+      "categoryId": "c3",
+      "text": "Orders not sorted by cooking time",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k8",
+      "anchorId": "n1",
+      "categoryId": "c3",
+      "text": "No cover plan",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k9",
+      "anchorId": "n1",
+      "categoryId": "c4",
+      "text": "Fries straight from the freezer",
+      "state": "excluded",
+      "nodeId": null
+    },
+    {
+      "id": "k10",
+      "anchorId": "n1",
+      "categoryId": "c4",
+      "text": "Frying oil 6 days old",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k11",
+      "anchorId": "n1",
+      "categoryId": "c5",
+      "text": "More orders than usual",
+      "state": "excluded",
+      "nodeId": "n3"
+    },
+    {
+      "id": "k12",
+      "anchorId": "n1",
+      "categoryId": "c5",
+      "text": "34 °C inside the truck",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k13",
+      "anchorId": "n1",
+      "categoryId": "c6",
+      "text": "No display of the waiting time",
+      "state": "open",
+      "nodeId": null
+    },
+    {
+      "id": "k14",
+      "anchorId": "n1",
+      "categoryId": "c6",
+      "text": "Oil temperature is not read",
+      "state": "confirmed",
+      "nodeId": null
+    }
+  ],
+  "actions": [
+    {
+      "id": "m1",
+      "rootId": null,
+      "kind": "immediate",
+      "text": "Filter cleaned, fryer 2 back in service",
+      "strength": null,
+      "check": "Fryer runs without failure next Saturday",
+      "checkDate": "",
+      "owner": "Aylin",
+      "due": "2026-10-04",
+      "status": "effective"
+    },
+    {
+      "id": "m2",
+      "rootId": "n7",
+      "kind": "corrective",
+      "text": "Add the grease filter to the weekly cleaning schedule (Mondays), with photo instructions",
+      "strength": "organisational",
+      "check": "4 weeks without an overheat shutdown",
+      "checkDate": "2026-11-03",
+      "owner": "Fritz",
+      "due": "2026-10-06",
+      "status": "done"
+    },
+    {
+      "id": "m3",
+      "rootId": "n7",
+      "kind": "preventive",
+      "text": "Buy a second filter as a spare – swap instead of cleaning",
+      "strength": "substitute",
+      "check": "Swap ticked off in the schedule every Monday",
+      "checkDate": "2026-12-01",
+      "owner": "Fritz",
+      "due": "2026-10-10",
+      "status": "open"
+    },
+    {
+      "id": "m4",
+      "rootId": "d3",
+      "kind": "corrective",
+      "text": "Opening checklist with visual check of filter and oil temperature (≤ 180 °C)",
+      "strength": "organisational",
+      "check": "Checklist filled in on 8 of 8 market days",
+      "checkDate": "2026-11-05",
+      "owner": "Jonas",
+      "due": "2026-10-08",
+      "status": "done"
+    },
+    {
+      "id": "m5",
+      "rootId": "d3",
+      "kind": "corrective",
+      "text": "Train the team on overheating",
+      "strength": "training",
+      "check": "",
+      "checkDate": "",
+      "owner": "",
+      "due": "",
+      "status": "open"
+    }
+  ],
+  "transfer": "Check fryer 1 and the grill extractor hood as well.",
+  "lessons": "When buying new equipment, update the cleaning schedule at the same time.",
+  "confirmed": [
+    "causal:occurrence"
+  ]
+}

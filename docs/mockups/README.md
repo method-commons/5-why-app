@@ -1,6 +1,6 @@
 # Mockups – 5-Warum-App
 
-Statische Entwürfe (keine Funktion), im Stil der [Morphologischen Matrix](https://github.com/method-commons/morphological-matrix-app) und der [User-Story-App](https://github.com/method-commons/user-story-app) (gleiche Design-Tokens, Kopfzeile mit Tabs, Kennzahl-Kacheln, Prüf-Seitenleiste). Quelle: [`mockups.html`](mockups.html) – im Browser öffnen.
+Statische Entwürfe (keine Funktion) – inzwischen umgesetzt, siehe [README](../../README.md), im Stil der [Morphologischen Matrix](https://github.com/method-commons/morphological-matrix-app) und der [User-Story-App](https://github.com/method-commons/user-story-app) (gleiche Design-Tokens, Kopfzeile mit Tabs, Kennzahl-Kacheln, Prüf-Seitenleiste). Quelle: [`mockups.html`](mockups.html) – im Browser öffnen.
 
 | # | Ansicht | Datei |
 |---|---------|-------|
@@ -28,3 +28,5 @@ Die App unterstützt die **Methodik** (Problem sauber beschreiben, Ursachen samm
 - Die Blickwinkel **„Warum nicht entdeckt?“** und **„Warum im System möglich?“** sind optional (je Analyse zuschaltbar); „Warum aufgetreten?“ ist immer an.
 - **Ishikawa-Diagramm** als optionale Vorstufe: Ursachen einer Ebene in die Breite sammeln, ausgewählte als Zweige mit 5 Warum in die Tiefe verfolgen.
 - Optionale Bereiche sind wie in der Matrix-App standardmäßig aus; ausgeblendete Angaben bleiben erhalten.
+
+In der Umsetzung erscheinen die Analysen nicht als Browser-Tabs, sondern wie in der User-Story-App mit Namen in der Kopfzeile; Ishikawa ist eine Ansicht der Warum-Analyse neben Kette und Baum.
