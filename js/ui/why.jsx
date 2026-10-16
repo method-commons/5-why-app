@@ -3,7 +3,7 @@
  * Ebene für Ebene mit Beleg, Status, Grundursache, Verzweigungen, Daher-Probe), Baum (alle
  * Zweige und Blickwinkel) und – optional – Ishikawa (ishikawa.jsx).
  */
-import { useEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 import { Checks } from '../checks.js';
 import { Model } from '../model.js';
 import { Ops } from '../ops.js';
@@ -87,7 +87,8 @@ function NodeCard({ a, n, siblings }) {
   const W = Texts.why;
   const ref = useRef(/** @type {HTMLTextAreaElement | null} */ (null));
   const wantFocus = focusNode.value === n.id;
-  useEffect(() => {
+  // Fokus synchron setzen, damit kein Tastendruck vor dem Fokus verloren geht
+  useLayoutEffect(() => {
     if (wantFocus && ref.current) { ref.current.focus(); focusNode.value = null; }
   }, [wantFocus]);
   const blame = Util.findWord(n.text, [...Texts.words.blame, ...a.team.filter(t => t.trim().length > 2)]);
