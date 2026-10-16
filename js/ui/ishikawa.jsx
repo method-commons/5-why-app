@@ -3,7 +3,7 @@
  * Blickwinkel „aufgetreten“ – nach Kategorien sammeln, prüfen und als Zweige in die
  * Warum-Analyse übernehmen („Breite vor Tiefe“).
  */
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { Model } from '../model.js';
 import { Ops } from '../ops.js';
 import { Texts } from '../texts.js';
@@ -31,7 +31,8 @@ function toNode(causeId) {
 function AddCause({ a, cat, anchorId }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(/** @type {HTMLInputElement | null} */ (null));
-  useEffect(() => { if (open && ref.current) ref.current.focus(); }, [open]);
+  // Fokus synchron setzen, damit kein Tastendruck vor dem Fokus verloren geht
+  useLayoutEffect(() => { if (open && ref.current) ref.current.focus(); }, [open]);
   // Wert direkt aus dem Feld lesen: beim Verlassen nach Escape darf nichts mehr angelegt werden
   const add = () => {
     const el = ref.current;

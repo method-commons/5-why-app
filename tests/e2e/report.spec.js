@@ -10,6 +10,8 @@ test('Bericht auf einer Seite und als Markdown', async ({ page }) => {
   await expect(report).toContainText('5-Warum-Analyse: Lange Wartezeit am Samstag');
   await expect(report.locator('section[data-lens]')).toHaveCount(3);
   await expect(report.locator('.rp-root')).toHaveCount(2);
+  await expect(report.locator('[data-lens="occurrence"] .rp-root')).toContainText('◎1 Die Filterreinigung');
+  await expect(report.locator('[data-lens="detection"] .rp-root')).toContainText('◎2 Beim Öffnen');
   await expect(report.locator('.rp-refuted')).toHaveCount(1);
   await page.uncheck('#showRefuted');
   await expect(report.locator('.rp-refuted')).toHaveCount(0);

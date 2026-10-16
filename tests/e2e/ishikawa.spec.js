@@ -14,6 +14,7 @@ test('Ishikawa einschalten, Ursachen sammeln und als Zweig weiterfragen', async 
   const machine = page.locator('.bone').nth(1);
   await expect(machine.locator('.cat-name')).toHaveValue('Maschine');
   await machine.locator('.add-cause').click();
+  await expect(machine.locator('.cause-input')).toBeFocused();
   await page.keyboard.type('Fritteuse überhitzt');
   await page.keyboard.press('Enter');
   await page.keyboard.type('Kasse langsam');
