@@ -319,7 +319,7 @@
   .a3 ol { margin: 0; padding-left: 20px; }
   .a3 ol li { margin: 2px 0; }
   .a3 ol.sub-branch { padding-left: 18px; }
-  .rp-root > .rp-text { color: var(--root); font-weight: 700; }
+  .rp-root > .rp-text, .rp-ref { color: var(--root); font-weight: 700; }
   .rp-refuted > .rp-text { text-decoration: line-through; color: var(--muted); }
   .rp-tag { color: var(--muted); }
   .rp-tag.warn { color: var(--warn); }

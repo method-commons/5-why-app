@@ -11,18 +11,23 @@ import { Util } from '../util.js';
 import { download } from './components.jsx';
 import { toast, useAnalysis } from './core.js';
 
-/** Zweige eines Blickwinkels als verschachtelte Liste. @param {{ a: Analysis, lens: Lens, parentId: string | null, refuted: boolean }} props */
-function Branch({ a, lens, parentId, refuted }) {
+/**
+ * Zweige eines Blickwinkels als verschachtelte Liste; Grundursachen tragen ihre Nummer (◎1 …)
+ * wie in der Maßnahmen-Tabelle.
+ * @param {{ a: Analysis, lens: Lens, parentId: string | null, refuted: boolean, roots: WhyNode[] }} props
+ */
+function Branch({ a, lens, parentId, refuted, roots }) {
   const kids = Model.children(a, lens, parentId).filter(n => refuted || n.state !== 'refuted');
   if (!kids.length) return null;
   return (
     <ol class={parentId ? 'sub-branch' : ''}>
       {kids.map(n => (
         <li key={n.id} class={`rp-${n.state}${n.root ? ' rp-root' : ''}`}>
+          {n.root && roots.includes(n) && <b class="rp-ref">◎{roots.indexOf(n) + 1} </b>}
           <span class="rp-text">{n.text.trim() || Texts.why.untitled}</span>
           {n.state === 'assumed' && <span class="rp-tag warn"> ({Texts.evidence.assumed})</span>}
           {n.state === 'refuted' && <span class="rp-tag"> ({Texts.evidence.refuted})</span>}
-          <Branch a={a} lens={lens} parentId={n.id} refuted={refuted} />
+          <Branch a={a} lens={lens} parentId={n.id} refuted={refuted} roots={roots} />
         </li>
       ))}
     </ol>
@@ -73,7 +78,7 @@ export function Report() {
             <section key={lens} class={lenses.length === 1 ? 'full' : ''} data-lens={lens}>
               <h4>{3 + i} · {Texts.lens[lens].title}</h4>
               {lens !== 'occurrence' && a.lensQuestions[lens].trim() && <p class="sub small"><i>{a.lensQuestions[lens]}</i></p>}
-              {Model.nodesOf(a, lens).length ? <Branch a={a} lens={lens} parentId={null} refuted={refuted} /> : <p class="sub">{R.noChain}</p>}
+              {Model.nodesOf(a, lens).length ? <Branch a={a} lens={lens} parentId={null} refuted={refuted} roots={roots} /> : <p class="sub">{R.noChain}</p>}
             </section>
           ))}
           {lenses.length === 3 && <section class="filler" aria-hidden="true" />}

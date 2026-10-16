@@ -43,7 +43,8 @@ describe('IO: Markdown', () => {
     expect(md).toContain('## Warum aufgetreten?');
     expect(md).toContain('## Warum nicht entdeckt?');
     expect(md).toContain('*Warum fiel der zugesetzte Filter nicht vorher auf?*');
-    expect(md).toMatch(/ {8}- W5: Die Filterreinigung .* \(\*\*Grundursache\*\*\)/);
+    expect(md).toMatch(/ {8}- W5: Die Filterreinigung .* \(\*\*◎1 Grundursache\*\*\)/);
+    expect(md).toContain('- W3: Beim Öffnen des Trucks gibt es keine Prüfliste. (**◎2 Grundursache**)');
     expect(md).toContain('~~widerlegt~~');
     expect(md).toContain('| Art | Maßnahme | gegen | Wirksamkeit prüfen | Wer | Bis | Status |');
     expect(md).toContain('| Sofort | Filter gereinigt, Fritteuse 2 wieder in Betrieb | Symptom |');
@@ -78,7 +79,7 @@ describe('IO: Markdown', () => {
     const m = Ops.addAction(a, { rootId: n.id, text: 'M' });
     m.status = 'effective';
     m.check = 'ok';
-    expect(IO.markdown(a)).toContain('| Abstellen | M | U | ok | wirksam |');
+    expect(IO.markdown(a)).toContain('| Abstellen | M | ◎1 U | ok | wirksam |');
     expect(IO.markdown(a)).toContain('*Stand der Analyse: Abgeschlossen*');
   });
 });

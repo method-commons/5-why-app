@@ -76,12 +76,13 @@ export const IO = (() => {
       if (!nodes.length) continue;
       lines.push(`## ${T.lens[lens].title}`, '');
       if (lens !== 'occurrence' && a.lensQuestions[lens].trim()) lines.push(`*${md(a.lensQuestions[lens].trim())}*`, '');
+      const roots = Model.roots(a);
       /** @param {string | null} parentId @param {number} depth */
       const walk = (parentId, depth) => {
         for (const n of Model.children(a, lens, parentId)) {
           if (n.state === 'refuted' && opts.refuted === false) continue;
           const tags = [
-            n.root ? `**${T.why.rootCause}**` : '',
+            n.root ? `**◎${roots.indexOf(n) + 1} ${T.why.rootCause}**` : '',
             n.state === 'assumed' ? `*${T.evidence.assumed}*` : '',
             n.state === 'refuted' ? `~~${T.evidence.refuted}~~` : '',
             n.category ? n.category : '',
@@ -105,7 +106,7 @@ export const IO = (() => {
       const roots = Model.roots(a);
       for (const x of a.actions) {
         const root = roots.find(r => r.id === x.rootId);
-        const row = [T.actionKind[x.kind], cell(x.text), root ? cell(root.text) : x.rootId ? '–' : T.actions.symptom, cell(x.check)];
+        const row = [T.actionKind[x.kind], cell(x.text), root ? `◎${roots.indexOf(root) + 1} ${cell(root.text)}` : x.rootId ? '–' : T.actions.symptom, cell(x.check)];
         if (a.settings.owner) row.push(cell(x.owner));
         if (a.settings.due) row.push(x.due ? Util.formatDay(x.due, T.locale, 0) : '–');
         row.push(T.actionStatus[x.status]);
