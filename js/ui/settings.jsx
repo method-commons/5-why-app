@@ -6,7 +6,8 @@ import { useState } from 'preact/hooks';
 import { Model } from '../model.js';
 import { Ops } from '../ops.js';
 import { Texts } from '../texts.js';
-import { confirmDialog, Dialog, fill, Switch } from './components.jsx';
+import { Dialog, Switch } from './components.jsx';
+import { changePreset } from './ishikawa.jsx';
 import { closeDialog, mutate, openDialog, setPrefs, useAnalysis } from './core.js';
 
 export function openSettings() {
@@ -33,13 +34,6 @@ function SettingsDialog() {
     if (asDefault) setPrefs({ defaults: { ...a.settings } });
     closeDialog();
   };
-  /** @param {Preset} preset */
-  const changePreset = preset => {
-    const lost = Ops.causesLostByPreset(a, preset);
-    const run = () => { mutate(x => Ops.applyPreset(x, preset)); openSettings(); };
-    if (!lost) { mutate(x => Ops.applyPreset(x, preset)); return; }
-    confirmDialog({ title: Texts.ishikawa.presetTitle, text: fill(Texts.ishikawa.presetLoses, { n: lost }), ok: Texts.ishikawa.presetOk, danger: true, onOk: run });
-  };
   const lensName = (/** @type {Lens} */ l) => <><i class={`lens-dot lens-${l}`} />{Texts.lens[l].title}</>;
   return (
     <Dialog title={S.title} id="settingsDialog" onClose={finish}>
@@ -58,7 +52,7 @@ function SettingsDialog() {
           <div class="sub-opts">
             <span>{S.preset}</span>
             {Model.PRESETS.map(p => (
-              <button type="button" key={p} class={`chip${a.preset === p ? ' acc' : ''}`} aria-pressed={a.preset === p} data-preset={p} onClick={() => changePreset(p)}>{Texts.ishikawa.presets[p].name}</button>
+              <button type="button" key={p} class={`chip${a.preset === p ? ' acc' : ''}`} aria-pressed={a.preset === p} data-preset={p} onClick={() => changePreset(a, p, openSettings)}>{Texts.ishikawa.presets[p].name}</button>
             ))}
             <span class="break" />
             {a.categories.map(c => <span class="chip" key={c.id}>{Model.categoryName(a, c.id)}</span>)}

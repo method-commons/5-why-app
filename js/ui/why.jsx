@@ -75,7 +75,7 @@ function Branches({ siblings, current }) {
       {siblings.map(s => (
         <button type="button" key={s.id} class={`chip branch ev-${s.state}${s.id === current.id ? ' on' : ''}${s.root ? ' is-root' : ''}`} aria-pressed={s.id === current.id}
           onClick={() => { branchChoice.value = { ...branchChoice.value, [s.parentId ?? `:${s.lens}`]: s.id }; }}>
-          {Texts.evidence.icons[s.state]} {cut(s.text.trim() || Texts.why.untitled, 40)}
+          {Texts.evidence.icons[s.state]} {cut(Model.textOf(s), 40)}
         </button>
       ))}
     </div>
@@ -199,7 +199,7 @@ function Readback({ a, lens }) {
           <p class="readback">
             {[...path].reverse().map(n => (
               <span key={n.id}>
-                <span class={n.root ? 'rb-root' : ''}>{n.text.trim() || W.untitled}</span> <span class="rb-therefore">{W.therefore}</span>{' '}
+                <span class={n.root ? 'rb-root' : ''}>{Model.textOf(n)}</span> <span class="rb-therefore">{W.therefore}</span>{' '}
               </span>
             ))}
             <b>{cut(startText(a, lens) || Texts.why.problem, 120)}</b>
@@ -243,7 +243,7 @@ function TreeNode({ a, n }) {
           {Model.label(a, n)}{n.category ? ` · ${n.category}` : ''}
           <span class="st">{n.root ? <span class="chip root sm">◎ {Texts.why.rootCause}</span> : <EvidenceChip state={n.state} short />}</span>
         </small>
-        <span class="node-text">{n.text.trim() || Texts.why.untitled}</span>
+        <span class="node-text">{Model.textOf(n)}</span>
       </button>
       {(kids.length > 0 || leafAdd) && (
         <ul>

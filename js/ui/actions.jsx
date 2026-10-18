@@ -33,10 +33,25 @@ function StrengthBars({ strength }) {
   );
 }
 
+/**
+ * Datumsfeld mit Beschriftung; ungültige Eingaben werden leer gespeichert.
+ * @param {{ label: string, value: string, cls?: string, onPick: (v: string) => void, children?: any }} props
+ */
+function DateField({ label, value, cls = '', onPick, children }) {
+  return (
+    <label class={`mini-date ${cls}`}>
+      <span>{label}</span>
+      <input type="date" class="input sm" value={value}
+        onChange={e => { const v = /** @type {HTMLInputElement} */ (e.currentTarget).value; mutate(() => onPick(Util.isDay(v) ? v : '')); }} />
+      {children}
+    </label>
+  );
+}
+
 /** @param {{ a: Analysis, x: Action, today: string }} props */
 function ActionRow({ a, x, today }) {
   const C = A().cols;
-  const late = a.settings.due && x.due && x.due < today && !Checks.isDone(x) && x.status !== 'ineffective';
+  const late = Checks.isOverdue(a, x, today);
   return (
     <div class={`m-row${late ? ' late' : ''}`} data-action={x.id}>
       <Pick label={C.kind} cls={`m-kind kind-${x.kind}`} value={x.kind}
@@ -55,11 +70,7 @@ function ActionRow({ a, x, today }) {
       <button type="button" class="icon-btn sm m-del" aria-label={A().remove} title={A().remove} onClick={() => mutate(y => Ops.removeAction(y, x.id))}>✕</button>
       <div class="m-sub">
         <input class={`input sm m-check${Checks.isFix(x) && !x.check.trim() ? ' warn' : ''}`} aria-label={C.check} placeholder={A().checkPlaceholder} {...fieldProps(() => x.check, v => { x.check = v; })} />
-        <label class="mini-date">
-          <span>{A().checkDate}</span>
-          <input type="date" class="input sm" value={x.checkDate}
-            onChange={e => { const v = /** @type {HTMLInputElement} */ (e.currentTarget).value; mutate(() => { x.checkDate = Util.isDay(v) ? v : ''; }); }} />
-        </label>
+        <DateField label={A().checkDate} value={x.checkDate} onPick={v => { x.checkDate = v; }} />
         {a.settings.owner && (
           <label class="mini-date m-owner">
             <span>{C.owner}</span>
@@ -67,12 +78,9 @@ function ActionRow({ a, x, today }) {
           </label>
         )}
         {a.settings.due && (
-          <label class={`mini-date m-due${late ? ' late' : ''}`}>
-            <span>{C.due}</span>
-            <input type="date" class="input sm" value={x.due}
-              onChange={e => { const v = /** @type {HTMLInputElement} */ (e.currentTarget).value; mutate(() => { x.due = Util.isDay(v) ? v : ''; }); }} />
+          <DateField label={C.due} cls={`m-due${late ? ' late' : ''}`} value={x.due} onPick={v => { x.due = v; }}>
             {late && <small class="bad">⚠ {A().overdueShort}</small>}
-          </label>
+          </DateField>
         )}
       </div>
     </div>
@@ -137,7 +145,7 @@ export function ActionsView() {
           )}
           <Group a={a} rootId={null} title={A().symptomTitle} sub={A().symptomHelp} mark="!" cls="symptom" today={today} />
           {roots.map((r, i) => (
-            <Group a={a} rootId={r.id} key={r.id} title={r.text.trim() || Texts.why.untitled} mark={`◎${i + 1}`} cls="root-group" today={today}
+            <Group a={a} rootId={r.id} key={r.id} title={Model.textOf(r)} mark={`◎${i + 1}`} cls="root-group" today={today}
               sub={<><span class={`lens-text lens-${r.lens}`}>● {Texts.lens[r.lens].title}</span> · {Model.label(a, r)}</>} />
           ))}
           {orphans.length > 0 && (
@@ -145,11 +153,11 @@ export function ActionsView() {
               <div class="rc-head"><span class="mark">?</span><div class="rc-title"><div class="t">{A().orphanTitle}</div><div class="p">{A().orphanHelp}</div></div></div>
               {orphans.map(x => (
                 <div class="orphan-row" key={x.id}>
-                  <span>{x.text.trim() || A().untitled}</span>
+                  <span>{Model.actionText(x)}</span>
                   <select class="input select sm" aria-label={A().assign} value="" onChange={e => { const v = /** @type {HTMLSelectElement} */ (e.currentTarget).value; mutate(() => { x.rootId = v === 'symptom' ? null : v; }); }}>
                     <option value="" disabled>{A().assign}</option>
                     <option value="symptom">{A().symptomTitle}</option>
-                    {roots.map(r => <option key={r.id} value={r.id}>{(r.text.trim() || Texts.why.untitled).slice(0, 60)}</option>)}
+                    {roots.map(r => <option key={r.id} value={r.id}>{Model.textOf(r).slice(0, 60)}</option>)}
                   </select>
                   <button type="button" class="icon-btn sm" aria-label={A().remove} onClick={() => mutate(y => Ops.removeAction(y, x.id))}>✕</button>
                 </div>

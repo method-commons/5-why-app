@@ -2,7 +2,7 @@
  * Startseite: alle Analysen als Karten (Problem, Phase, Kennzahlen, Grundursache, wichtigster
  * Hinweis), Ablauf der Methode, neue Analyse, Beispiel und Import.
  */
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import { Checks } from '../checks.js';
 import { Examples } from '../examples.js';
 import { IO } from '../io.js';
@@ -11,7 +11,7 @@ import { Store } from '../storage.js';
 import { Texts } from '../texts.js';
 import { Util } from '../util.js';
 import { deleteAnalysis, duplicateAnalysis } from './manage.js';
-import { Dialog, fill, PhaseBar, pickFile } from './components.jsx';
+import { Dialog, fill, PhaseBar, pickFile, useMenu } from './components.jsx';
 import { closeDialog, go, openDialog, prefs, render, toast, useRevision } from './core.js';
 import { openHelp } from './help.jsx';
 
@@ -83,16 +83,9 @@ function NewAnalysisDialog() {
 
 /** Menü einer Karte. @param {{ a: Analysis }} props */
 function CardMenu({ a }) {
-  const [openMenu, setOpen] = useState(false);
-  useEffect(() => {
-    if (!openMenu) return undefined;
-    /** @param {MouseEvent} e */
-    const close = e => { if (!(/** @type {HTMLElement} */ (e.target)).closest('.card-menu')) setOpen(false); };
-    document.addEventListener('click', close);
-    return () => document.removeEventListener('click', close);
-  }, [openMenu]);
+  const [openMenu, setOpen, ref] = useMenu();
   return (
-    <div class="menu card-menu">
+    <div class="menu card-menu" ref={ref}>
       <button type="button" class="icon-btn sm" aria-label={Texts.home.more} title={Texts.home.more} aria-haspopup="true" aria-expanded={openMenu} onClick={() => setOpen(!openMenu)}>⋯</button>
       {openMenu && (
         <div class="menu-list" role="menu">
@@ -109,7 +102,7 @@ function AnalysisCard({ a }) {
   const H = Texts.home;
   const s = Checks.stats(a);
   const phase = Checks.phase(a);
-  const complete = phase >= Checks.PHASES.length;
+  const complete = Checks.isComplete(a);
   const hint = Checks.topHint(a);
   const roots = Model.roots(a);
   const statement = Model.statement(a.problem);
@@ -121,7 +114,7 @@ function AnalysisCard({ a }) {
           <h2><a href={`#/a/${a.id}/problem`} class="acard-link">{a.name}</a></h2>
           {a.context && <div class="sub small">{a.context}</div>}
         </div>
-        <span class={`chip ${complete ? 'good' : phase === 0 ? '' : 'acc'}`}>{complete ? `✓ ${Texts.phase.complete}` : Texts.phase[Checks.PHASES[phase]]}</span>
+        <span class={`chip ${complete ? 'good' : phase === 0 ? '' : 'acc'}`}>{complete ? '✓ ' : ''}{Checks.phaseLabel(a)}</span>
         <CardMenu a={a} />
       </div>
       <div class={`acard-problem${statement ? '' : ' empty'}`}><span>{statement || H.noProblem}</span></div>
@@ -133,7 +126,7 @@ function AnalysisCard({ a }) {
           : <div><b>{s.actionsDone} / {s.actions}</b><small>{H.actionsDone}</small></div>}
       </div>
       <PhaseBar a={a} />
-      {roots.slice(0, 2).map(r => <div class="acard-root" key={r.id}><span class="chip root sm">{H.rootLabel}</span>{r.text || Texts.why.untitled}</div>)}
+      {roots.slice(0, 2).map(r => <div class="acard-root" key={r.id}><span class="chip root sm">{H.rootLabel}</span>{Model.textOf(r)}</div>)}
       {hint && <div class="hint warn">⚠ {hint}</div>}
     </article>
   );

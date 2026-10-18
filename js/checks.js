@@ -121,10 +121,14 @@ export const Checks = (() => {
   /** @param {Action} x */
   const isDone = x => x.status === 'done' || x.status === 'effective';
 
+  /** Ist der Termin einer offenen Maßnahme überschritten (nur mit Termin-Spalte)? @param {Analysis} a @param {Action} x @param {string} [today] */
+  function isOverdue(a, x, today = Util.today()) {
+    return a.settings.due && !!x.due && x.due < today && !isDone(x) && x.status !== 'ineffective';
+  }
+
   /** Offene Maßnahmen mit überschrittenem Termin. @param {Analysis} a @param {string} [today] */
   function overdue(a, today = Util.today()) {
-    if (!a.settings.due) return [];
-    return a.actions.filter(x => x.due && x.due < today && !isDone(x) && x.status !== 'ineffective');
+    return a.actions.filter(x => isOverdue(a, x, today));
   }
 
   /** Maßnahmen, deren Grundursache es nicht (mehr) gibt. @param {Analysis} a */
@@ -156,7 +160,7 @@ export const Checks = (() => {
     if (!fixes.length) out.push(check('measurable', 'open', C.measurable.open));
     else {
       const vague = fixes.filter(x => !x.check.trim());
-      out.push(vague.length ? check('measurable', 'warn', f(C.measurable.warn, { text: vague[0].text.trim() || Texts.actions.untitled, n: vague.length })) : check('measurable', 'ok', C.measurable.ok));
+      out.push(vague.length ? check('measurable', 'warn', f(C.measurable.warn, { text: Model.actionText(vague[0]), n: vague.length })) : check('measurable', 'ok', C.measurable.ok));
     }
 
     const weak = roots.filter(r => {
@@ -164,17 +168,17 @@ export const Checks = (() => {
       return own.length > 0 && own.every(x => x.strength === 'training');
     });
     if (!fixes.length) out.push(check('strength', 'open', C.strength.open));
-    else out.push(weak.length ? check('strength', 'warn', f(C.strength.warn, { text: weak[0].text.trim() || Texts.why.untitled })) : check('strength', 'ok', C.strength.ok));
+    else out.push(weak.length ? check('strength', 'warn', f(C.strength.warn, { text: Model.textOf(weak[0]) })) : check('strength', 'ok', C.strength.ok));
 
     if (a.settings.due) {
       const late = overdue(a, today);
       out.push(late.length
-        ? check('due', 'bad', f(late.length === 1 ? C.due.one : C.due.many, { text: late[0].text.trim() || Texts.actions.untitled, day: Util.formatDay(late[0].due, Texts.locale), n: late.length }))
+        ? check('due', 'bad', f(late.length === 1 ? C.due.one : C.due.many, { text: Model.actionText(late[0]), day: Util.formatDay(late[0].due, Texts.locale), n: late.length }))
         : check('due', 'ok', C.due.ok));
     }
 
     const failed = fixes.filter(x => x.status === 'ineffective');
-    if (failed.length) out.push(check('effective', 'bad', f(C.effective.bad, { text: failed[0].text.trim() || Texts.actions.untitled })));
+    if (failed.length) out.push(check('effective', 'bad', f(C.effective.bad, { text: Model.actionText(failed[0]) })));
     else if (fixes.length && fixes.every(x => x.status === 'effective')) out.push(check('effective', 'ok', C.effective.ok));
     else out.push(check('effective', 'open', f(C.effective.open, { n: fixes.filter(x => x.status === 'effective').length, total: fixes.length })));
     return out;
@@ -202,6 +206,17 @@ export const Checks = (() => {
     return i === -1 ? PHASES.length : i;
   }
 
+  /** Ist die Analyse abgeschlossen (alle Phasen erledigt)? @param {Analysis} a */
+  function isComplete(a) {
+    return phase(a) >= PHASES.length;
+  }
+
+  /** Bezeichnung des Stands: aktuelle Phase bzw. „Abgeschlossen“. @param {Analysis} a */
+  function phaseLabel(a) {
+    const p = phase(a);
+    return p >= PHASES.length ? Texts.phase.complete : Texts.phase[PHASES[p]];
+  }
+
   /** Kennzahlen für Übersicht und Kopf. @param {Analysis} a @param {string} [today] */
   function stats(a, today = Util.today()) {
     const fixes = a.actions.filter(isFix);
@@ -221,9 +236,9 @@ export const Checks = (() => {
   function topHint(a, today = Util.today()) {
     const H = T().hints;
     const late = overdue(a, today);
-    if (late.length) return f(late.length === 1 ? H.overdueOne : H.overdueMany, { text: late[0].text.trim() || Texts.actions.untitled, day: Util.formatDay(late[0].due, Texts.locale), n: late.length });
+    if (late.length) return f(late.length === 1 ? H.overdueOne : H.overdueMany, { text: Model.actionText(late[0]), day: Util.formatDay(late[0].due, Texts.locale), n: late.length });
     const failed = a.actions.find(x => x.status === 'ineffective');
-    if (failed) return f(H.ineffective, { text: failed.text.trim() || Texts.actions.untitled });
+    if (failed) return f(H.ineffective, { text: Model.actionText(failed) });
     const assumed = Model.nodesOf(a, 'occurrence').filter(n => n.state === 'assumed' && n.text.trim());
     if (assumed.length && phase(a) <= 2) return f(assumed.length === 1 ? H.assumedOne : H.assumedMany, { n: assumed.length });
     const roots = Model.roots(a);
@@ -232,5 +247,5 @@ export const Checks = (() => {
     return null;
   }
 
-  return { score, problem, chain, actions, overdue, orphans, phase, stats, topHint, PHASES, isFix, isDone };
+  return { score, problem, chain, actions, isOverdue, overdue, orphans, phase, isComplete, phaseLabel, stats, topHint, PHASES, isFix, isDone };
 })();

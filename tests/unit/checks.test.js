@@ -202,3 +202,45 @@ describe('Phase, Kennzahlen, Hinweis', () => {
     expect(Checks.topHint(Model.create())).toBeNull();
   });
 });
+
+describe('Hilfsfunktionen', () => {
+  it('erkennen überfällige Maßnahmen nur mit Termin-Spalte', () => {
+    const a = Model.create();
+    const x = Ops.addAction(a, { rootId: null });
+    x.due = '2026-01-01';
+    expect(Checks.isOverdue(a, x, '2026-10-13')).toBe(false);
+    a.settings.due = true;
+    expect(Checks.isOverdue(a, x, '2026-10-13')).toBe(true);
+    expect(Checks.isOverdue(a, x, '2025-12-31')).toBe(false);
+    x.status = 'done';
+    expect(Checks.isOverdue(a, x, '2026-10-13')).toBe(false);
+    x.status = 'ineffective';
+    expect(Checks.isOverdue(a, x, '2026-10-13')).toBe(false);
+    x.status = 'open';
+    x.due = '';
+    expect(Checks.isOverdue(a, x, '2026-10-13')).toBe(false);
+  });
+
+  it('benennen den Stand der Analyse', () => {
+    const a = Model.create();
+    expect(Checks.phaseLabel(a)).toBe('Problem');
+    expect(Checks.isComplete(a)).toBe(false);
+    a.problem.what = 'P';
+    const n = Ops.addNode(a, { lens: 'occurrence', parentId: null, text: 'U' });
+    Ops.setRoot(a, n.id, true);
+    const m = Ops.addAction(a, { rootId: n.id });
+    m.status = 'effective';
+    expect(Checks.phaseLabel(a)).toBe('Abgeschlossen');
+    expect(Checks.isComplete(a)).toBe(true);
+  });
+
+  it('liefern Ersatztexte für leere Einträge', () => {
+    expect(Model.textOf({ text: '  ' })).toBe('(ohne Text)');
+    expect(Model.textOf({ text: ' A ' })).toBe('A');
+    const a = Model.create();
+    const x = Ops.addAction(a, { rootId: null });
+    expect(Model.actionText(x)).toBe('(Maßnahme ohne Text)');
+    x.text = 'Plan';
+    expect(Model.actionText(x)).toBe('Plan');
+  });
+});
