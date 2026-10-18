@@ -87,7 +87,7 @@ export const IO = (() => {
             n.state === 'refuted' ? `~~${T.evidence.refuted}~~` : '',
             n.category ? n.category : '',
           ].filter(Boolean).join(', ');
-          const text = n.state === 'refuted' ? `~~${md(n.text.trim() || T.why.untitled)}~~` : md(n.text.trim() || T.why.untitled);
+          const text = n.state === 'refuted' ? `~~${md(Model.textOf(n))}~~` : md(Model.textOf(n));
           lines.push(`${'  '.repeat(depth)}- ${Model.label(a, n)}: ${text}${tags ? ` (${tags})` : ''}${n.evidence.trim() ? ` – ${T.why.evidence}: ${md(n.evidence.trim())}` : ''}`);
           walk(n.id, depth + 1);
         }
@@ -121,8 +121,7 @@ export const IO = (() => {
       if (a.lessons.trim()) lines.push(`**${T.actions.lessons}** ${md(a.lessons.trim())}`, '');
     }
 
-    const phase = Checks.phase(a);
-    lines.push(`*${T.report.state}: ${phase >= Checks.PHASES.length ? T.phase.complete : T.phase[Checks.PHASES[phase]]}*`, '');
+    lines.push(`*${T.report.state}: ${Checks.phaseLabel(a)}*`, '');
     return lines.join('\n');
   }
 

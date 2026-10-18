@@ -15,6 +15,21 @@ const I = () => Texts.ishikawa;
 /** @param {Partial<{ anchorId: string | null | undefined, causeId: string | null }>} patch */
 const setState = patch => { ishikawaState.value = { ...ishikawaState.value, ...patch }; };
 
+/**
+ * Vorlage der Kategorien wechseln; gehen dabei Ursachen verloren, erst nachfragen.
+ * `afterConfirm` läuft nach der Rückfrage (z. B. Einstellungen wieder öffnen).
+ * @param {Analysis} a @param {Preset} preset @param {() => void} [afterConfirm]
+ */
+export function changePreset(a, preset, afterConfirm) {
+  const lost = Ops.causesLostByPreset(a, preset);
+  const run = () => mutate(x => Ops.applyPreset(x, preset));
+  if (!lost) { run(); return; }
+  confirmDialog({
+    title: I().presetTitle, text: fill(I().presetLoses, { n: lost }), ok: I().presetOk, danger: true,
+    onOk: () => { run(); if (afterConfirm) afterConfirm(); },
+  });
+}
+
 /** Ursache als Zweig weiterfragen bzw. die Antwort öffnen. @param {string} causeId */
 function toNode(causeId) {
   const n = mutate(a => {
@@ -77,7 +92,7 @@ function Bone({ a, cat, anchorId, pos }) {
             <button type="button" class={`cause cs-${c.state}${selected === c.id ? ' sel' : ''}`} aria-pressed={selected === c.id} data-cause={c.id}
               onClick={() => setState({ causeId: selected === c.id ? null : c.id })}>
               <i aria-hidden="true">{Texts.causeState.icons[c.state]}</i>
-              <b>{c.text.trim() || Texts.why.untitled}</b>
+              <b>{Model.textOf(c)}</b>
               {n && <span class="tow">→ {Model.label(a, n)}</span>}
             </button>
           </li>
@@ -149,16 +164,8 @@ export function IshikawaView() {
   const here = a.causes.filter(c => c.anchorId === anchorId);
   const taken = here.filter(c => Model.node(a, c.nodeId));
   const open = here.filter(c => c.state === 'open' && !c.nodeId);
-  const effect = anchor ? anchor.text.trim() || Texts.why.untitled : Model.statement(a.problem) || Texts.why.noProblem;
+  const effect = anchor ? Model.textOf(anchor) : Model.statement(a.problem) || Texts.why.noProblem;
   const occurrence = Model.nodesOf(a, 'occurrence');
-
-  /** @param {Preset} preset */
-  const changePreset = preset => {
-    const lost = Ops.causesLostByPreset(a, preset);
-    const run = () => mutate(x => Ops.applyPreset(x, preset));
-    if (!lost) { run(); return; }
-    confirmDialog({ title: I().presetTitle, text: fill(I().presetLoses, { n: lost }), ok: I().presetOk, danger: true, onOk: run });
-  };
 
   return (
     <div class="ishikawa" id="ishikawa">
@@ -166,10 +173,10 @@ export function IshikawaView() {
         <label class="sub small" for="anchorSel">{I().for}</label>
         <select class="input select" id="anchorSel" value={anchorId ?? ''} onChange={e => setState({ anchorId: /** @type {HTMLSelectElement} */ (e.currentTarget).value || null, causeId: null })}>
           <option value="">{I().anchorProblem}</option>
-          {occurrence.map(n => <option key={n.id} value={n.id}>{Model.label(a, n)} · {(n.text.trim() || Texts.why.untitled).slice(0, 60)}</option>)}
+          {occurrence.map(n => <option key={n.id} value={n.id}>{Model.label(a, n)} · {Model.textOf(n).slice(0, 60)}</option>)}
         </select>
         <label class="sub small" for="presetSel">{I().categories}</label>
-        <select class="input select" id="presetSel" value={a.preset} onChange={e => changePreset(/** @type {Preset} */ (/** @type {HTMLSelectElement} */ (e.currentTarget).value))}>
+        <select class="input select" id="presetSel" value={a.preset} onChange={e => changePreset(a, /** @type {Preset} */ (/** @type {HTMLSelectElement} */ (e.currentTarget).value))}>
           {Model.PRESETS.map(p => <option key={p} value={p}>{Texts.ishikawa.presets[p].name}</option>)}
         </select>
         <button type="button" class="btn sm" id="addCategory" onClick={() => mutate(x => Ops.addCategory(x))}>{I().addCategory}</button>
@@ -203,7 +210,7 @@ export function IshikawaView() {
               return (
                 <li key={c.id}>
                   <button type="button" class="link sm" onClick={() => toNode(c.id)}>{Model.label(a, n)}</button>
-                  <span class={n.state === 'refuted' ? 'struck' : ''}>{n.text.trim() || Texts.why.untitled}</span>
+                  <span class={n.state === 'refuted' ? 'struck' : ''}>{Model.textOf(n)}</span>
                   <span class="chip sm">{Model.categoryName(a, c.categoryId)}</span>
                 </li>
               );

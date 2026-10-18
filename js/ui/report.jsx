@@ -24,7 +24,7 @@ function Branch({ a, lens, parentId, refuted, roots }) {
       {kids.map(n => (
         <li key={n.id} class={`rp-${n.state}${n.root ? ' rp-root' : ''}`}>
           {n.root && roots.includes(n) && <b class="rp-ref">◎{roots.indexOf(n) + 1} </b>}
-          <span class="rp-text">{n.text.trim() || Texts.why.untitled}</span>
+          <span class="rp-text">{Model.textOf(n)}</span>
           {n.state === 'assumed' && <span class="rp-tag warn"> ({Texts.evidence.assumed})</span>}
           {n.state === 'refuted' && <span class="rp-tag"> ({Texts.evidence.refuted})</span>}
           <Branch a={a} lens={lens} parentId={n.id} refuted={refuted} roots={roots} />
@@ -38,7 +38,6 @@ export function Report() {
   const a = useAnalysis();
   const R = Texts.report;
   const [refuted, setRefuted] = useState(true);
-  const phase = Checks.phase(a);
   const roots = Model.roots(a);
   const lenses = Model.lenses(a);
   const facts = a.facts.filter(f => f.text.trim());
@@ -47,7 +46,6 @@ export function Report() {
     try { await navigator.clipboard.writeText(md()); toast(R.copied); } catch (e) { toast(R.copyFailed); }
   };
   const meta = [a.context.trim(), a.team.length ? `${Texts.problem.team}: ${a.team.join(', ')}` : '', `${R.asOf} ${Util.formatDay(Util.today(), Texts.locale, 0)}`].filter(Boolean).join(' · ');
-  const statusText = phase >= Checks.PHASES.length ? Texts.phase.complete : Texts.phase[Checks.PHASES[phase]];
   return (
     <div class="page report-page">
       <div class="toolbar no-print">
@@ -63,7 +61,7 @@ export function Report() {
             <h1>{R.heading}: {a.name}</h1>
             <div class="sub small">{meta}</div>
           </div>
-          <span class={`chip ${phase >= Checks.PHASES.length ? 'good' : 'acc'}`}>{R.state}: {statusText}</span>
+          <span class={`chip ${Checks.isComplete(a) ? 'good' : 'acc'}`}>{R.state}: {Checks.phaseLabel(a)}</span>
         </div>
         <div class="a3">
           <section>
@@ -113,7 +111,7 @@ export function Report() {
               </table>
             )}
             {roots.length > 0 && (
-              <p class="small root-legend">{roots.map((r, i) => <span key={r.id}><b class="root-text">◎{i + 1}</b> {r.text.trim() || Texts.why.untitled}{i < roots.length - 1 ? ' · ' : ''}</span>)}</p>
+              <p class="small root-legend">{roots.map((r, i) => <span key={r.id}><b class="root-text">◎{i + 1}</b> {Model.textOf(r)}{i < roots.length - 1 ? ' · ' : ''}</span>)}</p>
             )}
           </section>
           <section class="full last">

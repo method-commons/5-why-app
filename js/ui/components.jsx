@@ -2,7 +2,7 @@
  * Kleine, wiederverwendbare Bausteine der Oberfläche: Dialog, Bestätigungsdialog, Prüfliste mit
  * Ring, Phasen-Leiste, Personen-Kreis, Herunterladen und Datei öffnen.
  */
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { Checks } from '../checks.js';
 import { Model } from '../model.js';
 import { Texts } from '../texts.js';
@@ -128,6 +128,26 @@ export function PhaseBar({ a }) {
       </div>
     </div>
   );
+}
+
+/**
+ * Aufklappmenü: offen/zu und ein Verweis auf den Rahmen. Klick daneben und Escape schließen.
+ * @returns {[boolean, (v: boolean) => void, import('preact').RefObject<HTMLDivElement>]}
+ */
+export function useMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(/** @type {HTMLDivElement | null} */ (null));
+  useEffect(() => {
+    if (!open) return undefined;
+    /** @param {MouseEvent} e */
+    const click = e => { if (ref.current && !ref.current.contains(/** @type {Node} */ (e.target))) setOpen(false); };
+    /** @param {KeyboardEvent} e */
+    const esc = e => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('click', click);
+    document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('click', click); document.removeEventListener('keydown', esc); };
+  }, [open]);
+  return [open, setOpen, ref];
 }
 
 /** Text als Datei herunterladen. @param {string} text @param {string} name @param {string} type */

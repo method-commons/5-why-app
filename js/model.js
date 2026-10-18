@@ -314,6 +314,16 @@ export const Model = (() => {
     return p.statement.trim() || suggestStatement(p);
   }
 
+  /** Text einer Antwort, Ursache o. Ä. – leer: „(ohne Text)“. @param {{ text: string }} x */
+  function textOf(x) {
+    return x.text.trim() || Texts.why.untitled;
+  }
+
+  /** Text einer Maßnahme – leer: „(Maßnahme ohne Text)“. @param {Action} x */
+  function actionText(x) {
+    return x.text.trim() || Texts.actions.untitled;
+  }
+
   /** Name einer Kategorie. @param {Analysis} a @param {string} categoryId */
   function categoryName(a, categoryId) {
     const c = a.categories.find(x => x.id === categoryId);
@@ -325,6 +335,6 @@ export const Model = (() => {
     PROBLEM_FIELDS, SETTINGS, COLORS, DEFAULT_SETTINGS,
     presetNames, create, normalize, emptyProblem,
     lenses, node, children, pathTo, level, label, descendants, nodesOf, roots, depth, mainPath,
-    suggestStatement, statement, categoryName,
+    suggestStatement, statement, textOf, actionText, categoryName,
   };
 })();

@@ -31,6 +31,7 @@ npx vite build && npx playwright test [datei]   # E2E gegen den Build (Port 4173
 - **Warum-Baum:** Antworten (`nodes`) mit `lens` und `parentId`; die „Kette“ zeigt einen Pfad (`Model.mainPath`, gewählte Zweige in `branchChoice`), der „Baum“ alle.
 - **Zustand:** `analysis` in `js/ui/core.js` ist ein normales Objekt; neu gezeichnet wird über das Signal `revision`. Strukturelle Änderungen mit `mutate(fn)`, Textfelder mit `{...fieldProps(get, set)}` (Verlaufseintrag beim Verlassen). Navigation über den Hash (`#/a/<id>/problem`, `#/a/<id>/why/<chain|tree|ishikawa>[/<lens>]`, `#/a/<id>/actions`, `#/a/<id>/report`).
 - `main.js` entfernt `Component.prototype.shouldComponentUpdate` (von @preact/signals): sonst zeichnen Kinder mit unveränderten Props nicht neu, obwohl sich die Analyse geändert hat.
+- **Gemeinsame Helfer statt Kopien:** `Model.textOf`/`Model.actionText` (Ersatztext bei leerem Text), `Checks.isOverdue`, `Checks.phaseLabel`/`isComplete`, `changePreset` (Ishikawa-Vorlage mit Rückfrage), `useMenu` (Aufklappmenü) in `components.jsx`.
 - **Texte** nur in `js/i18n/de.js` (maßgeblich) und `en.js` (gleiche Struktur und Platzhalter, wird geprüft; Wortlisten `words.*` dürfen verschieden lang sein).
 - **Beispiele** `examples/food-truck.{de,en}.json` müssen exakt der Ausgabe von `Model.normalize` entsprechen.
 

@@ -1,14 +1,14 @@
 /*
  * Rahmen der App: Kopfzeile mit Schritten und Menü, Inhalt je Route, Dialoge, Meldungen.
  */
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
 import { Checks } from '../checks.js';
 import { IO } from '../io.js';
 import { Store } from '../storage.js';
 import { Languages, Texts } from '../texts.js';
 import { Util } from '../util.js';
 import { ActionsView } from './actions.jsx';
-import { download } from './components.jsx';
+import { download, useMenu } from './components.jsx';
 import { deleteAnalysis, duplicateAnalysis } from './manage.js';
 import { canRedo, canUndo, commitEdit, dialog, goTab, redo, route, toasts, undo, useAnalysis, useRevision } from './core.js';
 import { openHelp } from './help.jsx';
@@ -26,25 +26,15 @@ function switchLanguage(lang) {
 }
 
 function Menu() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen, ref] = useMenu();
   const r = route.value;
   const a = useAnalysis();
-  useEffect(() => {
-    if (!open) return undefined;
-    /** @param {MouseEvent} e */
-    const close = e => { if (!(/** @type {HTMLElement} */ (e.target)).closest('.menu')) setOpen(false); };
-    /** @param {KeyboardEvent} e */
-    const esc = e => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('click', close);
-    document.addEventListener('keydown', esc);
-    return () => { document.removeEventListener('click', close); document.removeEventListener('keydown', esc); };
-  }, [open]);
   /** @param {() => void} fn */
   const run = fn => () => { setOpen(false); fn(); };
   const lang = Languages.detect();
   const M = Texts.menu;
   return (
-    <div class="menu">
+    <div class="menu" ref={ref}>
       <button type="button" class="btn ghost" id="menuBtn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
         {Texts.ui.menu} ▾
       </button>
