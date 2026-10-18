@@ -7,7 +7,7 @@ test('Bericht auf einer Seite und als Markdown', async ({ page }) => {
   await openExample(page);
   await nav(page, 'report');
   const report = page.locator('#report');
-  await expect(report).toContainText('5-Warum-Analyse: Lange Wartezeit am Samstag');
+  await expect(report).toContainText('5-Why-Analyse: Lange Wartezeit am Samstag');
   await expect(report.locator('section[data-lens]')).toHaveCount(3);
   await expect(report.locator('.rp-root')).toHaveCount(2);
   await expect(report.locator('[data-lens="occurrence"] .rp-root')).toContainText('◎1 Die Filterreinigung');

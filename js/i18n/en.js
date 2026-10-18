@@ -4,7 +4,7 @@
 export const TextsEn = {
   languageName: 'English',
   locale: 'en-GB',
-  appName: '5 Whys',
+  appName: '5 Why',
 
   ui: {
     allAnalyses: 'All analyses',
@@ -75,7 +75,7 @@ export const TextsEn = {
     example: 'Open example',
     import: 'Import (JSON)',
     emptyTitle: 'Find causes instead of fighting symptoms',
-    emptyText: 'With the 5 Whys method you keep asking “Why?” until you reach the root cause of a problem – and then decide on actions that address exactly that. Create a new analysis or take a look at the example.',
+    emptyText: 'With the 5 Why method you keep asking “Why?” until you reach the root cause of a problem – and then decide on actions that address exactly that. Create a new analysis or take a look at the example.',
     levels: 'Why levels',
     roots: 'Root causes',
     rootsOne: 'Root cause',
@@ -292,7 +292,7 @@ export const TextsEn = {
     listOpen: 'Still open ({n})',
     listOpenHelp: 'Check and confirm or exclude – only then keep asking as a branch.',
     tipTitle: 'Breadth before depth',
-    tip: 'Ishikawa collects possible causes by category so that nothing is overlooked. The 5 Whys then follow the confirmed causes down to the root cause. One diagram per level is possible.',
+    tip: 'Ishikawa collects possible causes by category so that nothing is overlooked. The 5 Why then follow the confirmed causes down to the root cause. One diagram per level is possible.',
   },
 
   causeState: {
@@ -354,7 +354,7 @@ export const TextsEn = {
   actionStatus: { open: 'open', done: 'done', effective: 'effective', ineffective: 'not effective' },
 
   report: {
-    heading: '5 Whys analysis',
+    heading: '5 Why analysis',
     onePage: 'One page',
     showRefuted: 'Show refuted assumptions',
     copy: 'Copy Markdown',
@@ -376,7 +376,7 @@ export const TextsEn = {
 
   settings: {
     title: 'Analysis settings',
-    lenses: 'Perspectives (3 × 5 Whys)',
+    lenses: 'Perspectives (3 × 5 Why)',
     occurrenceHelp: 'The actual why chain – always on.',
     detectionHelp: 'Why wasn’t the problem noticed earlier? Leads to checking and detection actions.',
     systemHelp: 'Which rule, planning or organisation allowed it?',
@@ -404,12 +404,12 @@ export const TextsEn = {
   },
 
   help: {
-    title: 'Method: 5 Whys',
+    title: 'Method: 5 Why',
     sections: {
       method: {
         title: 'The method',
         paras: [
-          'The 5 Whys method comes from the Toyota Production System (Taiichi Ohno). Starting from a problem, you repeatedly ask “Why?” until you reach the root cause – the cause whose removal prevents the problem for good.',
+          'The 5 Why method comes from the Toyota Production System (Taiichi Ohno). Starting from a problem, you repeatedly ask “Why?” until you reach the root cause – the cause whose removal prevents the problem for good.',
           'Five is a rule of thumb: sometimes three questions are enough, sometimes you need more. What matters is not to stop at the first symptom.',
         ],
         list: [
@@ -453,7 +453,7 @@ export const TextsEn = {
       lenses: {
         title: 'Three perspectives',
         paras: [
-          'Optionally, the analysis can be extended to three perspectives (“3 × 5 Whys”): Why did the problem occur? Why was it not detected? Why did our system allow it?',
+          'Optionally, the analysis can be extended to three perspectives (“3 × 5 Why”): Why did the problem occur? Why was it not detected? Why did our system allow it?',
           'The second perspective leads to checking and detection actions, the third to improvements in planning, rules and organisation. Switch them on under “File → Analysis settings”.',
         ],
         list: [],
