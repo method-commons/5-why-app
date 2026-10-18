@@ -150,6 +150,19 @@ export function useMenu() {
   return [open, setOpen, ref];
 }
 
+/** Logo der App (wie auf der Schulungsseite 5-why-site); Farbe über `currentColor`. */
+export function Logo() {
+  return (
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="7" fill="currentColor" />
+      <path d="M8.5 10.5v5.5h2M12 18.5v5.5h6.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".55" />
+      <rect x="6" y="6" width="14" height="4.5" rx="2.25" fill="#fff" />
+      <rect x="10.5" y="13.75" width="14" height="4.5" rx="2.25" fill="#fff" opacity=".55" />
+      <circle cx="22.5" cy="24" r="3.4" fill="none" stroke="#fb923c" stroke-width="2.4" />
+    </svg>
+  );
+}
+
 /** Text als Datei herunterladen. @param {string} text @param {string} name @param {string} type */
 export function download(text, name, type) {
   const blob = new Blob([text], { type });
