@@ -8,7 +8,7 @@ import { Store } from '../storage.js';
 import { Languages, Texts } from '../texts.js';
 import { Util } from '../util.js';
 import { ActionsView } from './actions.jsx';
-import { download, useMenu } from './components.jsx';
+import { download, Logo, useMenu } from './components.jsx';
 import { deleteAnalysis, duplicateAnalysis } from './manage.js';
 import { canRedo, canUndo, commitEdit, dialog, goTab, redo, route, toasts, undo, useAnalysis, useRevision } from './core.js';
 import { openHelp } from './help.jsx';
@@ -81,7 +81,7 @@ function Header() {
   return (
     <header class="app-header">
       <a class="brand" href="#/" title={Texts.ui.allAnalyses} id="homeLink">
-        <span class="logo" aria-hidden="true">5W</span>
+        <Logo />
         <span class="brand-name">{Texts.appName}</span>
       </a>
       {inAnalysis && (
