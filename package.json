@@ -1,6 +1,7 @@
 {
   "name": "5-why-app",
   "private": true,
+  "license": "MIT",
   "description": "Ursachen methodisch mit der 5-Warum-Methode analysieren – im Browser, gebaut mit Vite, veröffentlicht über GitHub Pages.",
   "type": "module",
   "scripts": {
