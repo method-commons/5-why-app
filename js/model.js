@@ -1,5 +1,5 @@
 /*
- * Model – Datenmodell einer 5-Warum-Analyse: Konstanten, Anlegen, Normalisieren (Import, alte
+ * Model – Datenmodell einer 5-Why-Analyse: Konstanten, Anlegen, Normalisieren (Import, alte
  * Stände), Navigation im Warum-Baum (Ebenen, Pfade, Grundursachen) und die Problemaussage.
  * Exportiert den Namensraum `Model`.
  */

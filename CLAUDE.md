@@ -1,6 +1,6 @@
 # CLAUDE.md – Hinweise für Claude Code
 
-5-Warum-App als Web-App ohne Server: Vite 8, Preact 10 + @preact/signals, Daten nur im Browser
+5-Why-App als Web-App ohne Server: Vite 8, Preact 10 + @preact/signals, Daten nur im Browser
 (localStorage), veröffentlicht über GitHub Pages. Technische Vorlage sind die
 [User-Story-App](https://github.com/method-commons/user-story-app) und die
 [Morphologische Matrix](https://github.com/method-commons/morphological-matrix-app). Funktionen und Module

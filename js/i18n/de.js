@@ -6,7 +6,7 @@
 export const TextsDe = {
   languageName: 'Deutsch',
   locale: 'de-DE',
-  appName: '5 Warum',
+  appName: '5 Why',
 
   ui: {
     allAnalyses: 'Alle Analysen',
@@ -77,7 +77,7 @@ export const TextsDe = {
     example: 'Beispiel öffnen',
     import: 'Importieren (JSON)',
     emptyTitle: 'Ursachen finden statt Symptome bekämpfen',
-    emptyText: 'Mit der 5-Warum-Methode fragst du so lange „Warum?“, bis du bei der Grundursache eines Problems ankommst – und legst dann Maßnahmen fest, die genau dort ansetzen. Lege eine neue Analyse an oder sieh dir das Beispiel an.',
+    emptyText: 'Mit der 5-Why-Methode fragst du so lange „Warum?“, bis du bei der Grundursache eines Problems ankommst – und legst dann Maßnahmen fest, die genau dort ansetzen. Lege eine neue Analyse an oder sieh dir das Beispiel an.',
     levels: 'Warum-Ebenen',
     roots: 'Grundursachen',
     rootsOne: 'Grundursache',
@@ -294,7 +294,7 @@ export const TextsDe = {
     listOpen: 'Noch offen ({n})',
     listOpenHelp: 'Prüfen und belegen oder ausschließen – erst dann als Zweig weiterfragen.',
     tipTitle: 'Breite vor Tiefe',
-    tip: 'Ishikawa sammelt mögliche Ursachen nach Kategorien, damit nichts übersehen wird. 5 Warum verfolgt dann die belegten Ursachen bis zur Grundursache. Ein Diagramm je Ebene möglich.',
+    tip: 'Ishikawa sammelt mögliche Ursachen nach Kategorien, damit nichts übersehen wird. 5 Why verfolgt dann die belegten Ursachen bis zur Grundursache. Ein Diagramm je Ebene möglich.',
   },
 
   causeState: {
@@ -356,7 +356,7 @@ export const TextsDe = {
   actionStatus: { open: 'offen', done: 'umgesetzt', effective: 'wirksam', ineffective: 'wirkt nicht' },
 
   report: {
-    heading: '5-Warum-Analyse',
+    heading: '5-Why-Analyse',
     onePage: 'Eine Seite',
     showRefuted: 'Widerlegte Annahmen zeigen',
     copy: 'Markdown kopieren',
@@ -378,7 +378,7 @@ export const TextsDe = {
 
   settings: {
     title: 'Einstellungen der Analyse',
-    lenses: 'Blickwinkel (3 × 5 Warum)',
+    lenses: 'Blickwinkel (3 × 5 Why)',
     occurrenceHelp: 'Die eigentliche Warum-Kette – immer an.',
     detectionHelp: 'Warum fiel das Problem nicht früher auf? Führt zu Prüf- und Erkennungsmaßnahmen.',
     systemHelp: 'Welche Regel, Planung oder Organisation ließ es zu?',
@@ -406,12 +406,12 @@ export const TextsDe = {
   },
 
   help: {
-    title: 'Methodik: 5 Warum',
+    title: 'Methodik: 5 Why',
     sections: {
       method: {
         title: 'Die Methode',
         paras: [
-          'Die 5-Warum-Methode stammt aus dem Toyota-Produktionssystem (Taiichi Ohno). Man fragt ausgehend von einem Problem wiederholt „Warum?“, bis man bei der Grundursache ankommt – der Ursache, deren Beseitigung das Problem dauerhaft verhindert.',
+          'Die 5-Why-Methode stammt aus dem Toyota-Produktionssystem (Taiichi Ohno). Man fragt ausgehend von einem Problem wiederholt „Warum?“, bis man bei der Grundursache ankommt – der Ursache, deren Beseitigung das Problem dauerhaft verhindert.',
           'Die Zahl fünf ist ein Richtwert: Manchmal genügen drei Fragen, manchmal braucht es mehr. Wichtig ist, nicht beim ersten Symptom stehen zu bleiben.',
         ],
         list: [
@@ -455,7 +455,7 @@ export const TextsDe = {
       lenses: {
         title: 'Drei Blickwinkel',
         paras: [
-          'Optional lässt sich die Analyse auf drei Blickwinkel erweitern („3 × 5 Warum“): Warum ist das Problem aufgetreten? Warum wurde es nicht entdeckt? Warum hat unser System es zugelassen?',
+          'Optional lässt sich die Analyse auf drei Blickwinkel erweitern („3 × 5 Why“): Warum ist das Problem aufgetreten? Warum wurde es nicht entdeckt? Warum hat unser System es zugelassen?',
           'Der zweite Blickwinkel führt zu Prüf- und Erkennungsmaßnahmen, der dritte zu Verbesserungen in Planung, Regeln und Organisation. Einschalten unter „Datei → Einstellungen der Analyse“.',
         ],
         list: [],

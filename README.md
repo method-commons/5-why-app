@@ -1,6 +1,6 @@
-# 5 Warum
+# 5 Why
 
-Responsive Web-App, die beim **methodischen Arbeiten mit der 5-Warum-Methode** (5 Why) hilft: ein Problem sauber beschreiben, schrittweise und mit Belegen nach dem „Warum?“ fragen, die Grundursache finden und wirksame Maßnahmen dagegen festlegen – für beliebig viele Analysen.
+Responsive Web-App, die beim **methodischen Arbeiten mit der 5-Why-Methode** hilft: ein Problem sauber beschreiben, schrittweise und mit Belegen nach dem „Warum?“ fragen, die Grundursache finden und wirksame Maßnahmen dagegen festlegen – für beliebig viele Analysen.
 
 Bewusst **kein Maßnahmen- oder Projektmanagement**: Person und Termin je Maßnahme sind optional, es gibt keine Erinnerungen, Benachrichtigungen oder Ticket-Anbindung.
 
@@ -30,7 +30,7 @@ Auf `main` veröffentlicht die CI die App auf GitHub Pages, sobald alle Prüfung
   - **Baum:** alle Zweige und Blickwinkel auf einen Blick; Klick öffnet die Antwort in der Kette, „+ Warum?“ an offenen Enden.
   - Kennzahlen: Ebenen, Verzweigungen, belegt/vermutet, widerlegt, Grundursachen je Blickwinkel.
 - **Optional (je Analyse unter „Datei → Einstellungen der Analyse“, standardmäßig aus):**
-  - **Blickwinkel „Warum nicht entdeckt?“ und „Warum im System möglich?“** (3 × 5 Warum) mit eigener Ausgangsfrage.
+  - **Blickwinkel „Warum nicht entdeckt?“ und „Warum im System möglich?“** (3 × 5 Why) mit eigener Ausgangsfrage.
   - **Ishikawa-Diagramm** als Vorstufe: Für das Problem oder eine Antwort mögliche Ursachen nach Kategorien sammeln – Vorlagen 6M, 8M, 4P oder eigene Kategorien (umbenennen, ergänzen, entfernen). Ursachen sind *belegt / offen / ausgeschlossen*; ausgewählte werden **als Zweig in die Warum-Analyse übernommen** (mit Kategorie; Status wird übertragen).
   - **Person („Wer“) und Termin („Bis“)** je Maßnahme; überschrittene Termine offener Maßnahmen werden markiert.
   - Auswahl als Standard für neue Analysen speicherbar; ausgeblendete Angaben bleiben erhalten.

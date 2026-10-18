@@ -36,7 +36,7 @@ describe('IO: Markdown', () => {
   it('fasst die Beispielanalyse zusammen', () => {
     const a = Examples.load('de');
     const md = IO.markdown(a, { today: '2026-10-13' });
-    expect(md).toContain('# 5-Warum-Analyse: Lange Wartezeit am Samstag');
+    expect(md).toContain('# 5-Why-Analyse: Lange Wartezeit am Samstag');
     expect(md).toContain('Team: Fritz, Aylin, Jonas · Stand 13.10.2026');
     expect(md).toContain('## Problem');
     expect(md).toContain('## Fakten');
@@ -57,7 +57,7 @@ describe('IO: Markdown', () => {
   it('kommt mit einer leeren Analyse zurecht und maskiert Markdown', () => {
     const a = Model.create({ name: 'Test *fett*' });
     let md = IO.markdown(a);
-    expect(md).toContain('# 5-Warum-Analyse: Test \\*fett\\*');
+    expect(md).toContain('# 5-Why-Analyse: Test \\*fett\\*');
     expect(md).toContain('(noch nicht beschrieben)');
     expect(md).not.toContain('## Maßnahmen');
     expect(md).toContain('*Stand der Analyse: Problem*');
