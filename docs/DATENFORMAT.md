@@ -2,6 +2,8 @@
 
 Eine Analyse wird als JSON gespeichert (localStorage, Export „Analyse exportieren (JSON)“). Beim Laden und Importieren wird jede Datei mit `Model.normalize` geprüft: fehlende Felder werden ergänzt, ungültige Werte und Verweise entfernt, doppelte IDs neu vergeben. Typen: [`types.d.ts`](../types.d.ts). Beispiel: [`examples/food-truck.de.json`](../examples/food-truck.de.json).
 
+Im localStorage liegt jede Analyse in einer Hülle `{ "savedAt": <Zeitpunkt in ms>, "data": <Analyse> }` – wie in den anderen Methoden-Apps, als Grundlage für die geplante gemeinsame Ablage ([method-commons/sync](https://github.com/method-commons/sync/blob/main/docs/KONZEPT.md)). Ältere Einträge ohne Hülle werden weiter gelesen und beim nächsten Speichern umgestellt. Export, Sicherung und Beispiele enthalten nur die Analyse selbst.
+
 ## Analyse
 
 | Feld | Typ | Bedeutung |

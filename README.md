@@ -48,7 +48,7 @@ Auf `main` veröffentlicht die CI die App auf GitHub Pages, sobald alle Prüfung
 | `js/model.js` | Datenmodell, Normalisieren, Warum-Baum (Ebenen, Pfade, Grundursachen), Problemaussage |
 | `js/checks.js` | Prüfungen (Problem, Kette, Maßnahmen), Phase, Kennzahlen, Hinweise |
 | `js/ops.js` | Änderungen (Fakten, Team, Antworten, Ishikawa, Maßnahmen, Einstellungen, Duplizieren) |
-| `js/storage.js` | Speicherung im localStorage |
+| `js/storage.js` | Speicherung im localStorage (`{ savedAt, data }` je Analyse, `readDoc`/`writeDoc`/`listDocs` wie in den anderen Methoden-Apps) |
 | `js/io.js` | JSON-Export/-Import, Sicherung, Markdown-Bericht |
 | `js/examples.js`, `examples/` | Beispielanalyse je Sprache |
 | `js/texts.js`, `js/i18n/` | Texte und Wortlisten (Deutsch maßgeblich, Englisch gleiche Struktur) |
