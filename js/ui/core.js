@@ -128,6 +128,9 @@ export function scheduleSave() {
   saveTimer = setTimeout(flushSave, 300);
 }
 
+/** Gibt es Eingaben, die noch nicht gespeichert sind (verzögertes Speichern läuft)? */
+export const hasPendingSave = () => saveTimer != null;
+
 /** Ausstehendes Speichern sofort ausführen. */
 export function flushSave() {
   if (!saveTimer) return;
@@ -156,14 +159,15 @@ export function replaceAnalysis(a) {
 /**
  * Gespeicherten Stand übernehmen, nachdem ein anderer Browser-Tab (oder die Ablage) die Analyse
  * geändert hat: geöffnete Analyse neu laden – außer während einer Texteingabe –, sonst die Übersicht.
- * @param {string} id
+ * `force`: auch während einer Texteingabe (die Ablage übernimmt nur ohne ungespeicherte Eingaben).
+ * @param {string} id @param {boolean} [force]
  */
-export function adoptStored(id) {
+export function adoptStored(id, force = false) {
   if (analysis && analysis.id === id) {
     const doc = Store.load(id);
     if (!doc) { applyRoute(); return; }
     const active = document.activeElement;
-    if (active && /^(INPUT|TEXTAREA)$/.test(active.tagName)) return;
+    if (!force && active && /^(INPUT|TEXTAREA)$/.test(active.tagName)) return;
     replaceAnalysis(doc);
   } else if (route.value.view === 'home') {
     render();

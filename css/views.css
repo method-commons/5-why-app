@@ -71,6 +71,8 @@
   .acard-title h2 { margin: 0 0 2px; font-size: 16px; }
   .acard-link { text-decoration: none; }
   .acard-link:hover { color: var(--accent); }
+  .acard-sync { display: flex; justify-content: flex-end; margin-top: -4px; }
+  .acard-sync:empty { display: none; }
   .acard-problem { font-size: 13px; color: var(--text-2); background: var(--surface-2); border-left: 3px solid var(--root); border-radius: 0 8px 8px 0; padding: 8px 10px; }
   .acard-problem > span { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .acard-problem.empty { color: var(--muted); border-left-color: var(--border-strong); font-style: italic; }
