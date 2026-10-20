@@ -10,7 +10,7 @@ import { Ops } from '../ops.js';
 import { Store } from '../storage.js';
 import { Languages, Texts } from '../texts.js';
 import { Util } from '../util.js';
-import { adoptStored, analysis, hasPendingSave, render, toast } from './core.js';
+import { adoptStored, analysis, endPreview, hasPendingSave, isPreview, render, setPreviewHooks, showPreview, toast } from './core.js';
 
 /** Kennung der App in der Ablage = Name des Repos (zugleich Ordner). */
 export const SYNC_APP = '5-why-app';
@@ -38,7 +38,7 @@ const adapter = {
    * @param {string} id @param {any} data @param {number} savedAt
    */
   write: (id, data, savedAt) => {
-    if (analysis?.id === id && hasPendingSave()) return false;
+    if (analysis?.id === id && (hasPendingSave() || isPreview())) return false;
     pulling = true;
     try {
       if (!Store.writeDoc(id, data, savedAt)) return false;
@@ -76,7 +76,9 @@ export function loadSync() {
       toast: (/** @type {string} */ text) => toast(text),
       // Nie bearbeitete Dokumente (frisch geöffnete Beispiele, leere neue) nicht vorauswählen
       preselect: (/** @type {{ data: any }} */ d) => d.data.createdAt !== d.data.updatedAt,
+      onPreview: (/** @type {any} */ p) => { if (p) showPreview(p.data); else endPreview(); },
     });
+    setPreviewHooks({ locked: Texts.sync.previewLocked, ended: () => syncUi.value?.endPreview() });
     controller.subscribe(() => render());
     controller.start();
     return syncUi.value;
@@ -87,6 +89,17 @@ export function loadSync() {
 /** Menü „Ablage …“: einrichten bzw. Übersicht. */
 export function openStorage() {
   loadSync().then(ui => ui.openStorage());
+}
+
+/** Menü „Versionen …“ des geöffneten Dokuments (ohne Ablage: Hinweis zum Einrichten). */
+export function openVersions() {
+  loadSync().then(ui => ui.openVersions(analysis?.id ?? null));
+}
+
+/** Leiste beim Ansehen eines früheren Stands (nur mit Ablage). */
+export function SyncPreview() {
+  const ui = syncUi.value;
+  return ui ? <div class="preview-slot"><ui.PreviewBar /></div> : null;
 }
 
 /** Hinweis am Menüeintrag „Ablage …“. */

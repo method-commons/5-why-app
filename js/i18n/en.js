@@ -39,12 +39,14 @@ export const TextsEn = {
     example: 'Open example',
     help: 'Method guide',
     storage: 'Storage …',
+    versions: 'Versions …',
     language: 'Language',
   },
   // Storage (method-commons/sync); all other texts come from the shared core
   sync: {
     notSet: 'not set up',
     storage: 'storage',
+    previewLocked: 'Earlier state – view only. Choose “Back to current state” to edit.',
     nouns: { one: 'analysis', many: 'analyses', list: 'All analyses' },
     summary: '{n} answers · {a} actions',
   },
