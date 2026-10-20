@@ -153,6 +153,23 @@ export function replaceAnalysis(a) {
   render();
 }
 
+/**
+ * Gespeicherten Stand übernehmen, nachdem ein anderer Browser-Tab (oder die Ablage) die Analyse
+ * geändert hat: geöffnete Analyse neu laden – außer während einer Texteingabe –, sonst die Übersicht.
+ * @param {string} id
+ */
+export function adoptStored(id) {
+  if (analysis && analysis.id === id) {
+    const doc = Store.load(id);
+    if (!doc) { applyRoute(); return; }
+    const active = document.activeElement;
+    if (active && /^(INPUT|TEXTAREA)$/.test(active.tagName)) return;
+    replaceAnalysis(doc);
+  } else if (route.value.view === 'home') {
+    render();
+  }
+}
+
 // ===== Änderungen und Verlauf =====
 /** Stand vor einer Texteingabe (Verlaufseintrag beim Verlassen des Felds). @type {string | null} */
 let editSnapshot = null;
