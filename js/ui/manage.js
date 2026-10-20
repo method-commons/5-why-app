@@ -17,7 +17,7 @@ export function deleteAnalysis(a) {
     onOk: () => {
       const copy = JSON.parse(JSON.stringify(a));
       if (current && current.id === a.id) discardAnalysis();
-      Store.removeAnalysis(a.id);
+      Store.removeDoc(a.id);
       go({ view: 'home' });
       toast(Texts.analysis.deleted, { label: Texts.ui.undone, run: () => { Store.save(copy); go({ view: 'home' }); render(); } });
       render();

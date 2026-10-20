@@ -36,7 +36,7 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 
 // Änderungen aus einem anderen Browser-Tab übernehmen
 window.addEventListener('storage', e => {
-  const id = Store.analysisIdOfKey(e.key);
+  const id = Store.docIdFromKey(e.key);
   if (!id) return;
   if (analysis && analysis.id === id) {
     if (!e.newValue) { applyRoute(); return; }

@@ -54,7 +54,7 @@ export function check(page, list, key) {
 
 /** Gespeicherte Analysen aus dem localStorage (wartet auf das verzögerte Speichern). */
 export function stored(page) {
-  return page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith('five-why:analysis:')).map(k => JSON.parse(localStorage.getItem(k))));
+  return page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith('five-why:analysis:')).map(k => JSON.parse(localStorage.getItem(k)).data));
 }
 
 /** Download auslösen und Inhalt lesen. */

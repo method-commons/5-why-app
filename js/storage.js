@@ -28,34 +28,61 @@ export const Store = (() => {
     try { return Object.keys(localStorage); } catch (e) { return []; }
   }
 
-  /** Analyse laden (normalisiert), `null` wenn nicht vorhanden oder beschädigt. @param {string} id @returns {Analysis | null} */
-  function load(id) {
+  /** @typedef {{ id: string, savedAt: number, data: Analysis }} StoredDoc */
+
+  /**
+   * Eintrag lesen (normalisiert), `null` wenn nicht vorhanden oder beschädigt. Gespeichert wird
+   * `{ savedAt, data }` wie in den anderen Methoden-Apps; ältere Einträge (Analyse direkt) werden
+   * ebenso gelesen und beim nächsten Speichern umgestellt.
+   * @param {string} id @returns {StoredDoc | null}
+   */
+  function readDoc(id) {
     const raw = get(PREFIX + id);
     if (!raw) return null;
-    try { return Model.normalize(JSON.parse(raw)); } catch (e) { return null; }
+    try {
+      const rec = JSON.parse(raw);
+      const wrapped = rec != null && typeof rec === 'object' && 'savedAt' in rec && 'data' in rec;
+      const data = Model.normalize(wrapped ? rec.data : rec);
+      return { id, savedAt: (wrapped ? Number(rec.savedAt) : Date.parse(data.updatedAt)) || 0, data };
+    } catch (e) { return null; }
+  }
+
+  /** @param {string} id @param {Analysis} data @param {number} [savedAt] z. B. beim Übernehmen aus einer Ablage @returns {boolean} */
+  function writeDoc(id, data, savedAt = Date.now()) {
+    return set(PREFIX + id, JSON.stringify({ savedAt, data }));
+  }
+
+  /** @param {string} id */
+  function removeDoc(id) {
+    remove(PREFIX + id);
+  }
+
+  /** ID einer Analyse zu einem Speicherschlüssel (z. B. aus einem `storage`-Ereignis), sonst `null`. @param {string | null} key */
+  function docIdFromKey(key) {
+    return key && key.startsWith(PREFIX) ? key.slice(PREFIX.length) : null;
+  }
+
+  /** Alle gespeicherten Einträge, zuletzt gespeicherte zuerst. @returns {StoredDoc[]} */
+  function listDocs() {
+    return keys().filter(k => k.startsWith(PREFIX))
+      .map(k => readDoc(k.slice(PREFIX.length)))
+      .filter(/** @returns {d is StoredDoc} */ d => d != null)
+      .sort((x, y) => y.savedAt - x.savedAt);
+  }
+
+  /** Analyse laden, `null` wenn nicht vorhanden oder beschädigt. @param {string} id @returns {Analysis | null} */
+  function load(id) {
+    return readDoc(id)?.data ?? null;
   }
 
   /** Analyse speichern. @param {Analysis} a @returns {boolean} */
   function save(a) {
-    return set(PREFIX + a.id, JSON.stringify(a));
-  }
-
-  /** @param {string} id */
-  function removeAnalysis(id) {
-    remove(PREFIX + id);
+    return writeDoc(a.id, a);
   }
 
   /** Alle gespeicherten Analysen, zuletzt bearbeitete zuerst. @returns {Analysis[]} */
   function all() {
-    return keys().filter(k => k.startsWith(PREFIX))
-      .map(k => load(k.slice(PREFIX.length)))
-      .filter(/** @returns {a is Analysis} */ a => a != null)
-      .sort((x, y) => y.updatedAt.localeCompare(x.updatedAt));
-  }
-
-  /** Ist der Speicherschlüssel der einer Analyse? Liefert die ID. @param {string | null} key */
-  function analysisIdOfKey(key) {
-    return key && key.startsWith(PREFIX) ? key.slice(PREFIX.length) : null;
+    return listDocs().map(d => d.data).sort((x, y) => y.updatedAt.localeCompare(x.updatedAt));
   }
 
   /** @returns {Prefs} */
@@ -75,5 +102,5 @@ export const Store = (() => {
     set(PREFS_KEY, JSON.stringify(prefs));
   }
 
-  return { PREFIX, PREFS_KEY, load, save, removeAnalysis, all, analysisIdOfKey, loadPrefs, savePrefs };
+  return { PREFIX, PREFS_KEY, readDoc, writeDoc, removeDoc, docIdFromKey, listDocs, load, save, all, loadPrefs, savePrefs };
 })();

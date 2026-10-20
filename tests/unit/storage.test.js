@@ -31,10 +31,10 @@ describe('Store', () => {
     Store.save(b);
     expect(Store.load(a.id).name).toBe('Eins');
     expect(Store.all().map(x => x.name)).toEqual(['Zwei', 'Eins']);
-    expect(Store.analysisIdOfKey(Store.PREFIX + a.id)).toBe(a.id);
-    expect(Store.analysisIdOfKey('anders')).toBeNull();
-    expect(Store.analysisIdOfKey(null)).toBeNull();
-    Store.removeAnalysis(a.id);
+    expect(Store.docIdFromKey(Store.PREFIX + a.id)).toBe(a.id);
+    expect(Store.docIdFromKey('anders')).toBeNull();
+    expect(Store.docIdFromKey(null)).toBeNull();
+    Store.removeDoc(a.id);
     expect(Store.load(a.id)).toBeNull();
   });
 
@@ -61,7 +61,24 @@ describe('Store', () => {
     expect(Store.save(a)).toBe(false);
     expect(Store.load(a.id)).toBeNull();
     expect(Store.all()).toEqual([]);
-    Store.removeAnalysis(a.id);
+    Store.removeDoc(a.id);
     expect(Store.loadPrefs().defaults).toEqual(Model.DEFAULT_SETTINGS);
+  });
+
+  it('speichert { savedAt, data } und liest ältere Einträge ohne Hülle', () => {
+    const neu = Model.create({ name: 'Neu' });
+    expect(Store.writeDoc(neu.id, neu, 1000)).toBe(true);
+    expect(JSON.parse(localStorage.getItem(Store.PREFIX + neu.id))).toEqual({ savedAt: 1000, data: neu });
+    expect(Store.readDoc(neu.id)).toEqual({ id: neu.id, savedAt: 1000, data: neu });
+    const alt = Model.create({ name: 'Alt' });
+    alt.updatedAt = '2026-03-01T00:00:00.000Z';
+    localStorage.setItem(Store.PREFIX + alt.id, JSON.stringify(alt));
+    expect(Store.readDoc(alt.id)).toEqual({ id: alt.id, savedAt: Date.parse(alt.updatedAt), data: alt });
+    expect(Store.listDocs().map(d => d.data.name)).toEqual(['Alt', 'Neu']);
+    expect(Store.docIdFromKey(Store.PREFIX + alt.id)).toBe(alt.id);
+    Store.save(alt);
+    expect(JSON.parse(localStorage.getItem(Store.PREFIX + alt.id)).data).toEqual(alt);
+    Store.removeDoc(alt.id);
+    expect(Store.readDoc(alt.id)).toBeNull();
   });
 });
