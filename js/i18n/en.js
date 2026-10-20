@@ -38,7 +38,15 @@ export const TextsEn = {
     import: 'Import (JSON) …',
     example: 'Open example',
     help: 'Method guide',
+    storage: 'Storage …',
     language: 'Language',
+  },
+  // Storage (method-commons/sync); all other texts come from the shared core
+  sync: {
+    notSet: 'not set up',
+    storage: 'storage',
+    nouns: { one: 'analysis', many: 'analyses', list: 'All analyses' },
+    summary: '{n} answers · {a} actions',
   },
 
   nav: {

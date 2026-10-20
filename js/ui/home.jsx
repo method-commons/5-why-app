@@ -14,6 +14,7 @@ import { deleteAnalysis, duplicateAnalysis } from './manage.js';
 import { Dialog, fill, PhaseBar, pickFile, useMenu } from './components.jsx';
 import { closeDialog, go, openDialog, prefs, render, toast, useRevision } from './core.js';
 import { openHelp } from './help.jsx';
+import { SyncDocState, SyncRemoteOnly } from './sync.jsx';
 
 /** Analyse öffnen. @param {Analysis} a */
 const open = a => go({ view: 'analysis', aid: a.id, tab: 'problem', mode: 'chain', lens: 'occurrence' });
@@ -128,6 +129,7 @@ function AnalysisCard({ a }) {
       <PhaseBar a={a} />
       {roots.slice(0, 2).map(r => <div class="acard-root" key={r.id}><span class="chip root sm">{H.rootLabel}</span>{Model.textOf(r)}</div>)}
       {hint && <div class="hint warn">⚠ {hint}</div>}
+      <div class="acard-sync"><SyncDocState id={a.id} /></div>
     </article>
   );
 }
@@ -164,6 +166,7 @@ export function Home() {
           {list.map(a => <AnalysisCard a={a} key={a.id} />)}
         </div>
       )}
+      <SyncRemoteOnly />
       <section class="card howto" aria-label={Texts.help.title}>
         {H.steps.map((st, i) => (
           <div key={i}>

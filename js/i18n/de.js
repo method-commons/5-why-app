@@ -40,7 +40,15 @@ export const TextsDe = {
     import: 'Importieren (JSON) …',
     example: 'Beispiel öffnen',
     help: 'Methodik-Hilfe',
+    storage: 'Ablage …',
     language: 'Sprache',
+  },
+  // Ablage (method-commons/sync); die übrigen Texte liefert der gemeinsame Kern
+  sync: {
+    notSet: 'nicht eingerichtet',
+    storage: 'Ablage',
+    nouns: { one: 'Analyse', many: 'Analysen', list: 'Alle Analysen' },
+    summary: '{n} Antworten · {a} Maßnahmen',
   },
 
   nav: {
