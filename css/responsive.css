@@ -57,6 +57,8 @@
     .page-head .actions { width: 100%; }
     .acards { grid-template-columns: minmax(0, 1fr); }
     .acard-meta div { padding: 8px; }
+    /* kleine Knöpfe mit langer Beschriftung (z. B. „Als Grundursache markieren“) umbrechen statt über den Rand */
+    .btn.sm { max-width: 100%; height: auto; min-height: 28px; white-space: normal; text-align: center; }
     .howto { grid-template-columns: 1fr; }
     .howto > div { border-right: 0; }
     .w2h { grid-template-columns: 1fr; gap: 4px; }

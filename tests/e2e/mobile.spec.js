@@ -21,7 +21,7 @@ test('mobil: keine Ansicht ist breiter als der Bildschirm (sonst verrutschen Kop
   await openExample(page);
   const id = await page.evaluate(() => location.hash.split('/')[2]);
   // etwas breitere Schrift: Schriften der CI und echter Telefone sind teils breiter als hier
-  await page.addStyleTag({ content: '* { letter-spacing: .5px !important; }' });
+  await page.addStyleTag({ content: '* { letter-spacing: 1px !important; }' });
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 760 });
     for (const view of ['problem', 'why/chain', 'why/tree', 'why/ishikawa', 'actions', 'report', '']) {
