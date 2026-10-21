@@ -30,3 +30,26 @@ Die App unterstützt die **Methodik** (Problem sauber beschreiben, Ursachen samm
 - Optionale Bereiche sind wie in der Matrix-App standardmäßig aus; ausgeblendete Angaben bleiben erhalten.
 
 In der Umsetzung erscheinen die Analysen nicht als Browser-Tabs, sondern wie in der User-Story-App mit Namen in der Kopfzeile; Ishikawa ist eine Ansicht der Warum-Analyse neben Kette und Baum.
+
+## Entwurf: 8D-Modus (Gegenüberstellung)
+
+Idee: Statt einer eigenen 8D-App wird die 5-Why-App um einen **8D-Modus** erweitert – je Analyse wählbar („Art: 5 Why / 8D-Report“). Jede Ansicht stellt links den **heutigen Stand** und rechts den **8D-Modus** gegenüber; Markierungen *wie heute*, *erweitert* und *neu* zeigen, was dazukommt. Quelle: [`8d-modus.html`](8d-modus.html). Beispiel: fiktive Reklamation „Halteclip K-214 bricht bei Montage“.
+
+| # | Ansicht | Datei |
+|---|---------|-------|
+| 1 | **Überblick** D1–D8: was die App heute schon abdeckt (D2 Problem, D4 Ursache mit „Warum nicht entdeckt?“, D5–D7 Maßnahmen, Übertragen, Gelernt) und was neu wäre | `8d-ueberblick.png` |
+| 2 | **Neue Analyse**: Art *5 Why* oder *8D-Report*, Kunde und Reklamationsnummer; Schritte D1–D8 statt vier Schritten | `8d-start.png` |
+| 3 | **D1 Team** mit Rollen (Teamleitung, Auftraggeber, Mitglied) und Funktion; Kopfdaten der Reklamation (Kunde, Nummer, Eingang, Teil, Charge, Mengen) | `8d-team.png` |
+| 4 | **D3 Eindämmung**: Sofortmaßnahmen je Ort (Lager, unterwegs, beim Kunden, Fertigung) mit Menge, geprüft, n. i. O., Kennzeichnung, wirksam ab | `8d-sofort.png` |
+| 5 | **D5–D7**: Nachweis vor Einführung, Einführung und Wirksamkeit, Dokumente aktualisiert (FMEA, Produktionslenkungsplan, Wartungsplan, Arbeitsanweisung), Übertragen | `8d-massnahmen.png` |
+| 6 | **D8 Abschluss**: Bereit-zum-Abschluss-Prüfung, Gelernt, Würdigung des Teams, Abschlussdatum, Bestätigung durch den Kunden | `8d-abschluss.png` |
+| 7 | **8D-Bericht** im üblichen Formular: Kopfdaten und je Disziplin eine Zeile mit Datum – Drucken/PDF und Markdown | `8d-bericht.png` |
+
+Abgrenzung bleibt: Der 8D-Modus ergänzt die **Dokumentation der Methode**, kein Reklamations- oder Maßnahmenmanagement (keine Erinnerungen, Workflows, Freigaben).
+
+Offene Fragen:
+
+- Datum je Disziplin (für den Bericht) – automatisch beim Erledigen oder von Hand?
+- Eine 5-Why-Analyse nachträglich in einen 8D-Report umwandeln (und zurück)?
+- Welche Kopfdaten sind Pflicht (Kunde, Reklamation, Teil, Charge, Mengen) – oder frei erweiterbar?
+- Schaltet 8D „Warum nicht entdeckt?“ sowie Person und Termin automatisch ein?
