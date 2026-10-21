@@ -48,14 +48,15 @@
     .project-name { max-width: 150px; padding: 0 9px; display: block; line-height: 34px; }
     .nav {
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; border-radius: 0; border: 0; border-top: 1px solid var(--border);
-      display: grid; grid-template-columns: repeat(4, 1fr); padding: 6px 4px calc(8px + env(safe-area-inset-bottom)); background: var(--surface);
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 4px calc(8px + env(safe-area-inset-bottom)); background: var(--surface);
     }
-    .nav > a { display: flex; flex-direction: column; align-items: center; gap: 1px; font-size: 11px; }
+    .nav > a { display: flex; flex-direction: column; align-items: center; gap: 1px; font-size: 11px; min-width: 0; white-space: normal; text-align: center; overflow-wrap: anywhere; }
     .nav > a.on { box-shadow: none; color: var(--accent); background: var(--accent-soft); }
     .nav .num { display: none; }
     .nav-icon { display: block; font-size: 17px; }
     .page-head .actions { width: 100%; }
-    .acards { grid-template-columns: 1fr; }
+    .acards { grid-template-columns: minmax(0, 1fr); }
+    .acard-meta div { padding: 8px; }
     .howto { grid-template-columns: 1fr; }
     .howto > div { border-right: 0; }
     .w2h { grid-template-columns: 1fr; gap: 4px; }
