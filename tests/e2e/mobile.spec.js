@@ -16,3 +16,23 @@ test('mobil: Navigation unten, Kette und Ishikawa als Liste', async ({ page }) =
   const width = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(width).toBeLessThanOrEqual(390);
 });
+
+test('mobil: keine Ansicht ist breiter als der Bildschirm (sonst verrutschen Kopfzeile und Navigation)', async ({ page }) => {
+  await openExample(page);
+  const id = await page.evaluate(() => location.hash.split('/')[2]);
+  // etwas breitere Schrift: Schriften der CI und echter Telefone sind teils breiter als hier
+  await page.addStyleTag({ content: '* { letter-spacing: 1px !important; }' });
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 760 });
+    for (const view of ['problem', 'why/chain', 'why/tree', 'why/ishikawa', 'actions', 'report', '']) {
+      await page.evaluate(([i, v]) => { location.hash = v ? `#/a/${i}/${v}` : '#/'; }, [id, view]);
+      await expect(page.locator('main')).toBeVisible();
+      const scroll = await page.evaluate(() => document.documentElement.scrollWidth);
+      expect(scroll, `${view || 'Übersicht'}, ${width} px`).toBeLessThanOrEqual(width);
+    }
+  }
+  // die breite Tabelle der Maßnahmen scrollt in ihrem Abschnitt
+  await page.evaluate(i => { location.hash = `#/a/${i}/report`; }, id);
+  const section = page.locator('.a3 > section.full:has(table)');
+  expect(await section.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+});

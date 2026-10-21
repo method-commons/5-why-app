@@ -50,7 +50,7 @@
   .phases span { flex: 1; height: 6px; border-radius: 3px; background: var(--surface-3); }
   .phases span.done { background: var(--good); }
   .phases span.cur { background: var(--accent); }
-  .phase-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 5px; gap: 4px; }
+  .phase-labels { display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 5px; gap: 0 4px; }
   .phase-labels .cur { color: var(--accent); font-weight: 650; }
 
   /* Status von Antworten */
@@ -66,8 +66,8 @@
   .lens-text.lens-system { color: var(--lens-system); font-weight: 650; }
 
   /* ===== Startseite ===== */
-  .acards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
-  .acard { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .acards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 16px; }
+  .acard { padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
   .acard:hover { border-color: var(--border-strong); }
   .acard-head { display: flex; gap: 12px; align-items: flex-start; }
   .acard-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; color: #fff; flex: none; font-size: 13px; }
@@ -80,7 +80,8 @@
   .acard-problem { font-size: 13px; color: var(--text-2); background: var(--surface-2); border-left: 3px solid var(--root); border-radius: 0 8px 8px 0; padding: 8px 10px; }
   .acard-problem > span { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .acard-problem.empty { color: var(--muted); border-left-color: var(--border-strong); font-style: italic; }
-  .acard-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .acard-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .acard-meta small { display: block; hyphens: auto; overflow-wrap: break-word; }
   .acard-meta div { background: var(--surface-2); border-radius: 8px; padding: 8px 10px; }
   .acard-meta b { display: block; font-size: 17px; }
   .acard-meta small { color: var(--muted); font-size: 11.5px; }
@@ -329,6 +330,9 @@
   .rp-refuted > .rp-text { text-decoration: line-through; color: var(--muted); }
   .rp-tag { color: var(--muted); }
   .rp-tag.warn { color: var(--warn); }
+  /* breite Tabelle (Maßnahmen) scrollt in ihrem Abschnitt – sonst wird mobil die ganze Seite breiter */
+  .a3 > section { min-width: 0; }
+  .a3 > section.full { overflow-x: auto; }
   .a3 table { border-collapse: collapse; width: 100%; font-size: 12px; }
   .a3 td, .a3 th { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
   .a3 th { font-size: 10.5px; text-transform: uppercase; color: var(--muted); letter-spacing: .03em; }
