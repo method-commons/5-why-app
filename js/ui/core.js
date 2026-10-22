@@ -81,7 +81,7 @@ const HISTORY_LIMIT = 200;
 /** Route aus dem Hash übernehmen und die passende Analyse laden. */
 export function applyRoute() {
   const r = parseHash(location.hash);
-  if (preview && !(r.view === 'analysis' && r.aid === analysis?.id)) endPreview(); // anderes Dokument: Ansehen beenden
+  if (preview && !(r.view === 'analysis' && r.aid === analysis?.id)) endPreview(false); // anderes Dokument: Ansehen beenden
   if (r.view === 'analysis') {
     if (!analysis || analysis.id !== r.aid) {
       flushSave();
@@ -177,8 +177,11 @@ export function adoptStored(id, force = false) {
   }
 }
 
-// ===== Früherer Stand (Versionen der Ablage) =====
-/** Wird ein früherer Stand angesehen? Dann ist der aktuelle in `saved` geparkt. @type {{ saved: any } | null} */
+// ===== Früherer bzw. geteilter Stand (Versionen und Teilen der Ablage) =====
+/**
+ * Wird ein früherer oder geteilter Stand angesehen? Dann ist das vorher geöffnete Dokument in `saved` geparkt
+ * (bei einem geteilten Link ggf. `null`, z. B. von der Übersicht aus). @type {{ saved: any, shared?: boolean } | null}
+ */
 let preview = null;
 /** Meldung bei gesperrtem Bearbeiten und Ende des Ansehens (aus sync.jsx). */
 let previewHooks = { locked: '', ended: () => {} };
@@ -203,12 +206,41 @@ export function showPreview(data) {
   replaceAnalysis(data);
 }
 
-/** Zurück zum aktuellen Stand (auch vor dem Wechsel zu einem anderen Dokument). */
-export function endPreview() {
-  if (!preview || !analysis) { preview = null; return; }
-  const saved = Store.load(analysis.id) ?? preview.saved;
+/**
+ * Geteiltes Dokument (Link `#g=…`) nur lesend zeigen – **ohne es zu speichern**, weder im Browser noch in der Ablage.
+ * Erst „Als Kopie speichern“ (Kern) legt bewusst ein eigenes Dokument an.
+ * @param {any} data
+ */
+export function showShared(data) {
+  // „Aktualisieren“ desselben Dokuments: Ansicht bleibt
+  if (preview?.shared && analysis?.id === data.id) { analysis = data; render(); return; }
+  if (analysis && !preview) { commitEdit(); flushSave(); }
+  if (!preview) preview = { saved: analysis, shared: true };
+  else preview.shared = true;
+  analysis = data;
+  const id = data.id;
+  go({ view: 'analysis', aid: id, tab: 'problem', mode: 'chain', lens: 'occurrence' });
+  render();
+}
+
+/**
+ * Zurück zum aktuellen Stand. Eine geteilte Ansicht wird verworfen; `navigate`: zum vorher geöffneten Dokument
+ * bzw. zur Übersicht wechseln (nicht, wenn ohnehin gerade die Route wechselt).
+ * @param {boolean} [navigate]
+ */
+export function endPreview(navigate = true) {
+  if (!preview) return;
+  const { saved, shared } = preview;
   preview = null;
-  replaceAnalysis(saved);
+  if (shared) {
+    analysis = null;
+    if (navigate) {
+      const id = saved?.id;
+      go(id ? { view: 'analysis', aid: id, tab: 'problem', mode: 'chain', lens: 'occurrence' } : { view: 'home' });
+    }
+  } else if (analysis) {
+    replaceAnalysis(Store.load(analysis.id) ?? saved);
+  }
   previewHooks.ended();
 }
 
